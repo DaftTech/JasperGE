@@ -20,10 +20,12 @@ class Vertex(val values: Seq[Float]) {
 //All vertex Buffers of a scene
 class VertexBuffer {
   val vboID = glGenBuffers()
-  val vertexBuffer = FloatBuffer.allocate(Vertex.VTX_FLOAT_COUNT * 3) //TODO änder mich auf max elements
+
+  glBindBuffer(GL_ARRAY_BUFFER, vboID)
+  glBufferData(GL_ARRAY_BUFFER, 512, GL_DYNAMIC_DRAW)
+  val vertexBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY).asFloatBuffer()
 
   @volatile var changed = false
-
 
   var allocPos = 0
   def allocate(size: Int): VertexBufferLocation = {
@@ -37,17 +39,6 @@ class VertexBuffer {
     vertexBuffer.synchronized {
       vertexBuffer.position(location.index)
       vertexBuffer.put(vertices.flatMap(_.values).toArray)
-    }
-
-    changed = true
-  }
-
-  def commit = {
-    changed = false
-
-    vertexBuffer.synchronized {
-      glBindBuffer(GL_ARRAY_BUFFER, vboID)
-      glBufferData(GL_ARRAY_BUFFER, vertexBuffer, GL_DYNAMIC_DRAW)
     }
   }
 }

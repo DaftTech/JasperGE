@@ -53,7 +53,6 @@ class Window(val width: Int, val height: Int) {
 
   def render(sceneRenderer: SceneRenderer, scene: Scene) = {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    scene.vertexBuffer.commit
     sceneRenderer.render(scene)
     glfwSwapBuffers(l_WID)
     glfwPollEvents()

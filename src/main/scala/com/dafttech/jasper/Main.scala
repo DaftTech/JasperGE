@@ -1,5 +1,7 @@
 package com.dafttech.jasper
 
+import org.lwjgl.opengl.GL11
+
 /**
   * Created by LolHens on 15.01.2016.
   */

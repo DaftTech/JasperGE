@@ -11,9 +11,10 @@ abstract class SceneRenderer {
 object ModelRenderer {
   val Triangle = new ModelRenderer {
     override def render(model: Model): Unit = {
+      glBindBuffer(GL_ARRAY_BUFFER, model.vbLoc.vertexBuffer.vboID)
       glEnableClientState(GL_VERTEX_ARRAY)
       glEnableClientState(GL_COLOR_ARRAY)
-      glBindBuffer(GL_ARRAY_BUFFER, model.vbLoc.vertexBuffer.vboID)
+
       glVertexPointer(3, GL_FLOAT, 24, 0)
       glColorPointer(3, GL_FLOAT, 24, 12)
 
