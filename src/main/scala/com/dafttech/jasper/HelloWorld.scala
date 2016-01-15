@@ -30,7 +30,8 @@ class HelloWorld {
   }
 
   private def init {
-    glfwSetErrorCallback(GLFWErrorCallback.createPrint(System.err))
+    errorCallback = GLFWErrorCallback.createPrint(System.err)
+    glfwSetErrorCallback(errorCallback)
     if (glfwInit != GLFW_TRUE) throw new IllegalStateException("Unable to initialize GLFW")
     glfwDefaultWindowHints
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE)
@@ -39,11 +40,12 @@ class HelloWorld {
     val HEIGHT: Int = 300
     window = glfwCreateWindow(WIDTH, HEIGHT, "Hello World!", NULL, NULL)
     if (window == NULL) throw new RuntimeException("Failed to create the GLFW window")
-    glfwSetKeyCallback(window, new GLFWKeyCallback() {
+    keyCallback = new GLFWKeyCallback() {
       def invoke(window: Long, key: Int, scancode: Int, action: Int, mods: Int) {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) glfwSetWindowShouldClose(window, GLFW_TRUE)
       }
-    })
+    }
+    glfwSetKeyCallback(window, keyCallback)
     val vidmode: GLFWVidMode = glfwGetVideoMode(glfwGetPrimaryMonitor)
     glfwSetWindowPos(window, (vidmode.width - WIDTH) / 2, (vidmode.height - HEIGHT) / 2)
     glfwMakeContextCurrent(window)
