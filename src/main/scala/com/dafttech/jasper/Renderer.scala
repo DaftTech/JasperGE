@@ -1,16 +1,31 @@
 package com.dafttech.jasper
 
+import org.lwjgl.opengl.GL11._
+import org.lwjgl.opengl.GL15._
 
 //Renders a scene into a 2D Image
-class SceneRenderer {
-  def render = {
-    //Render each model in Scene, to create a full image (output, lightmap etc). Configure shaders for each object
+abstract class SceneRenderer {
+  def render(scene: Scene)
+}
+
+object ModelRenderer {
+  val Triangle = new ModelRenderer {
+    override def render(model: Model): Unit = {
+      glEnableClientState(GL_VERTEX_ARRAY)
+      glEnableClientState(GL_COLOR_ARRAY)
+      glBindBuffer(GL_ARRAY_BUFFER, model.vbLoc.vertexBuffer.vboID)
+      glVertexPointer(3, GL_FLOAT, 24, 0)
+      glColorPointer(3, GL_FLOAT, 24, 12)
+
+      println(model.vbLoc.index)
+      glDrawArrays(GL_TRIANGLES, model.vbLoc.index, 1)
+
+      println("Render")
+    }
   }
 }
 
 //Renders a tesselated model into an 2D Image
-class ModelRenderer {
-  def render = {
-    //Render vertices only, without effects
-  }
+abstract class ModelRenderer {
+  def render(model: Model)
 }

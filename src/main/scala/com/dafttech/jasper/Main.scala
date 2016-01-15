@@ -6,9 +6,21 @@ package com.dafttech.jasper
 object Main {
   def main(args: Array[String]): Unit = {
     val win = new Window(800, 600)
+    val scn = new Scene
+
+    val model = new Model
+    scn.addModel(model)
+
+    val scnR = new SceneRenderer {
+      override def render(scene: Scene): Unit = {
+        for(m <- scene.models) {
+          m.modelRenderer.render(model)
+        }
+      }
+    }
 
     while(!win.shouldClose) {
-      win.render()
+      win.render(scnR, scn)
     }
   }
 }
