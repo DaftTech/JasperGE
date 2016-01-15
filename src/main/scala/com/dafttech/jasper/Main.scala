@@ -5,7 +5,10 @@ package com.dafttech.jasper
   */
 object Main {
   def main(args: Array[String]): Unit = {
-    println("hello!")
+    val win = new Window(800, 600)
 
+    while(!win.shouldClose) {
+      win.render()
+    }
   }
 }
