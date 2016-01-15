@@ -6,5 +6,6 @@ package com.dafttech.jasper
 object Main {
   def main(args: Array[String]): Unit = {
     println("hello!")
+
   }
 }

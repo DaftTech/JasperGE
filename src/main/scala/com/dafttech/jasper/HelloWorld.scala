@@ -1,3 +1,5 @@
+package com.dafttech.jasper
+
 import org.lwjgl._
 import org.lwjgl.glfw.GLFW._
 import org.lwjgl.glfw._
