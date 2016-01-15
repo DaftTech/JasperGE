@@ -57,7 +57,7 @@ class Window(val width: Int, val height: Int) {
     glfwPollEvents()
   }
 
-  def shouldClose = glfwWindowShouldClose(l_WID) == GLFW_FALSE
+  def shouldClose = glfwWindowShouldClose(l_WID) == GLFW_TRUE
 
   def destroy() = {
     keyCallback.release()
