@@ -22,7 +22,9 @@ object Main {
 
     val teapot = new ModelOBJ("teapot.obj")
 
-    val obj = scn.addObject(new PlacedModel(teapot, new Matrix4f().translate(0, -90, -250)))
+    val obj1 = scn.addObject(new PlacedModel(teapot, new Matrix4f().translate(-50, -90, -250)))
+    val obj2 = scn.addObject(new PlacedModel(teapot, new Matrix4f().translate(0, -90, -250)))
+    val obj3 = scn.addObject(new PlacedModel(teapot, new Matrix4f().translate(50, -90, -250)))
 
     val scnR = new SceneRenderer {
       override def render(scene: Scene): Unit = {
@@ -33,8 +35,32 @@ object Main {
     }
 
     Future {
+      var rot = 0.0f
       while (true) {
-        obj.transformation.set(obj.transformation.rotateZ(1f))
+        Thread.sleep(100)
+        rot += 0.05f
+        rot = rot % (2 * Math.PI.toFloat)
+        obj1.transformation.set(new Matrix4f().translate(-165, -90, -300).rotateZ(rot))
+      }
+    }
+
+    Future {
+      var rot = 0.0f
+      while (true) {
+        Thread.sleep(50)
+        rot += 0.025f
+        rot = rot % (2 * Math.PI.toFloat)
+        obj2.transformation.set(new Matrix4f().translate(0, -90, -300).rotateZ(rot))
+      }
+    }
+
+    Future {
+      var rot = 0.0f
+      while (true) {
+        Thread.sleep(20)
+        rot += 0.01f
+        rot = rot % (2 * Math.PI.toFloat)
+        obj3.transformation.set(new Matrix4f().translate(165, -90, -300).rotateZ(rot))
       }
     }
 
