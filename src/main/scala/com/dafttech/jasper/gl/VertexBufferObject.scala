@@ -30,10 +30,15 @@ class VertexBufferObject(size: Int, pointers: Seq[Pointer]) extends BufferObject
     value
   }
 
+  def activate: Unit = {
+    silentBind
+    Pointer.setup(pointers, stride)
+  }
+
   def render: Unit = render(size / stride)
 
   def render(count: Int, offset: Int = 0): Unit = this.use {
-    Pointer.setup(pointers, stride)
+    activate
     glDrawArrays(GL_TRIANGLES, offset, count)
   }
 

@@ -28,6 +28,16 @@ abstract class BufferObject(size: Int) {
     timesBound == 0
   }
 
+  def silentBind = {
+    timesBound -= 1
+    bind
+  }
+
+  def silentUnbind = {
+    timesBound += 1
+    unbind
+  }
+
   def close: Unit
 
 

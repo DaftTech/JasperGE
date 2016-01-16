@@ -107,6 +107,11 @@ class Window(val width: Int, val height: Int) {
 
   glEnable(GL_DEPTH_TEST)
 
+  glEnableClientState(GL_VERTEX_ARRAY)
+  glEnableClientState(GL_COLOR_ARRAY)
+  glEnableClientState(GL_TEXTURE_COORD_ARRAY)
+  glEnableClientState(GL_NORMAL_ARRAY)
+
   var rot = 0.0f
 
   def render(sceneRenderer: SceneRenderer, scene: Scene) = {

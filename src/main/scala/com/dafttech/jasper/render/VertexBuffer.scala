@@ -74,15 +74,16 @@ class VertexBuffer {
   }
 
   def activate = {
-    glEnableClientState(GL_VERTEX_ARRAY)
+    /*glEnableClientState(GL_VERTEX_ARRAY)
     glEnableClientState(GL_COLOR_ARRAY)
-    glEnableClientState(GL_NORMAL_ARRAY)
-    glBindBuffer(GL_ARRAY_BUFFER, vboID)
+    glEnableClientState(GL_NORMAL_ARRAY)*/
+    /*glBindBuffer(GL_ARRAY_BUFFER, vboID)
 
     glVertexPointer(3, GL_FLOAT, Vertex.VTX_FLOAT_COUNT * 4, 0)
     glColorPointer(4, GL_FLOAT, Vertex.VTX_FLOAT_COUNT * 4, 12)
     glNormalPointer(GL_FLOAT, Vertex.VTX_FLOAT_COUNT * 4, 28)
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID)
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID)*/
+    ibo.activate(vbo)
   }
 }

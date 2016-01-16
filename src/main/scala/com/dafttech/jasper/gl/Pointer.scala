@@ -19,37 +19,29 @@ object Pointer {
   def stride(pointers: Seq[Pointer]) = pointers.foldLeft(0)((last, e) => last + e.stride(pointers))
 
   case class Vertex(size: Int) extends Pointer {
-    override def setup(stride: Int, offset: Int): Unit = {
-      glEnableClientState(GL_VERTEX_ARRAY)
+    override def setup(stride: Int, offset: Int): Unit =
       glVertexPointer(size, GL_FLOAT, stride, offset)
-    }
 
     override def stride(pointers: Seq[Pointer]): Int = 4 * size
   }
 
   case class Color(size: Int) extends Pointer {
-    override def setup(stride: Int, offset: Int): Unit = {
-      glEnableClientState(GL_COLOR_ARRAY)
+    override def setup(stride: Int, offset: Int): Unit =
       glColorPointer(size, GL_FLOAT, stride, offset)
-    }
 
     override def stride(pointers: Seq[Pointer]): Int = 4 * size
   }
 
   case class TexCoord(size: Int) extends Pointer {
-    override def setup(stride: Int, offset: Int): Unit = {
-      glEnableClientState(GL_TEXTURE_COORD_ARRAY)
+    override def setup(stride: Int, offset: Int): Unit =
       glTexCoordPointer(size, GL_FLOAT, stride, offset)
-    }
 
     override def stride(pointers: Seq[Pointer]): Int = 4 * size
   }
 
   object Normal extends Pointer {
-    override def setup(stride: Int, offset: Int): Unit = {
-      glEnableClientState(GL_NORMAL_ARRAY)
+    override def setup(stride: Int, offset: Int): Unit =
       glNormalPointer(GL_FLOAT, stride, offset)
-    }
 
     override def stride(pointers: Seq[Pointer]): Int = pointers.foldLeft[Option[Int]](None) { (last, e) =>
       e match {
