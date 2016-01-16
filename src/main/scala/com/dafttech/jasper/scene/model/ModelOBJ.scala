@@ -34,7 +34,6 @@ class ModelOBJ(path: String, val pos: Point3f) extends Model {
       new TexCoord(ds(0), ds(1))
     }
     case s if s.startsWith("f ") => {
-      println("FAAACE")
       val d = s.stripPrefix("f ").trim
       val ds = d.split(" +")
 
@@ -47,7 +46,7 @@ class ModelOBJ(path: String, val pos: Point3f) extends Model {
     }
 
     case _ => null
-  }
+  }.toArray
 
   val fPoints = fParsed.filter(_.isInstanceOf[Point3f]).map(_.asInstanceOf[Point3f]).toArray
   val fNormals = fParsed.filter(_.isInstanceOf[Normal3f]).map(_.asInstanceOf[Normal3f]).toArray
