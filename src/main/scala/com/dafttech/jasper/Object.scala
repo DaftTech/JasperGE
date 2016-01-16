@@ -2,9 +2,6 @@ package com.dafttech.jasper
 
 import scala.collection.mutable
 
-/**
-  * Represents a abstract model as well as its representation in the Scene VertexBuffer
-  */
 class Object {
   val objectRenderer: ObjectRenderer = ObjectRenderer.Triangles
   val tesselator: Tesselator = Tesselator.Triangles

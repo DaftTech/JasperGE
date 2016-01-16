@@ -2,9 +2,6 @@ package com.dafttech.jasper
 
 import scala.collection.mutable
 
-/**
-  * Tesselates a model description into an VBO/VertexArray
-  */
 object Tesselator {
   val Triangles = new TesselatorTriangles()
 }
