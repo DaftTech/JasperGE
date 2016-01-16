@@ -4,7 +4,6 @@ import com.dafttech.jasper.model
 import com.dafttech.jasper.model.{RObject, Scene}
 import org.lwjgl.opengl.GL11._
 
-//Renders a scene into a 2D Image
 abstract class SceneRenderer {
   def render(scene: Scene)
 }
@@ -17,7 +16,6 @@ object ObjectRenderer {
   }
 }
 
-//Renders a tesselated model into an 2D Image
 abstract class ObjectRenderer {
   def render(model: RObject)
 }

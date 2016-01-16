@@ -5,10 +5,7 @@ import java.nio.{ByteBuffer, ByteOrder}
 import org.lwjgl.opengl.GL11._
 import org.lwjgl.opengl.GL15._
 
-//A specific location in a vertex buffer (a tesselated model
-class VertexBufferLocation(val vertexPosition: Int, val indexPosition: Int, val vertexBuffer: VertexBuffer) {
-
-}
+case class VertexBufferLocation(vertexPosition: Int, indexPosition: Int, vertexBuffer: VertexBuffer)
 
 object Vertex {
   val VTX_FLOAT_COUNT = 7
@@ -18,7 +15,6 @@ class Vertex(val values: Seq[Float]) {
   if (values.length != Vertex.VTX_FLOAT_COUNT) throw new IllegalArgumentException("Vertex size incorrect")
 }
 
-//All vertex Buffers of a scene
 class VertexBuffer {
   val vboID = glGenBuffers()
   val iboID = glGenBuffers()
