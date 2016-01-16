@@ -8,5 +8,5 @@ class Vertex(val values: Seq[Float]) {
 }
 
 object Vertex {
-  val VTX_FLOAT_COUNT = 7
+  val VTX_FLOAT_COUNT = 10
 }
