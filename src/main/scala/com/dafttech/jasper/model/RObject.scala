@@ -4,9 +4,6 @@ import com.dafttech.jasper.render.{ObjectRenderer, Tesselator, VertexBufferLocat
 
 import scala.collection.mutable
 
-/**
-  * Represents a abstract model as well as its representation in the Scene VertexBuffer
-  */
 class RObject {
   val objectRenderer: ObjectRenderer = ObjectRenderer.Triangles
   val tesselator: Tesselator = Tesselator.Triangles

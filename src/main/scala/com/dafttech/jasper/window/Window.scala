@@ -8,7 +8,6 @@ import org.lwjgl.opengl.GL
 import org.lwjgl.opengl.GL11._
 import org.lwjgl.system.MemoryUtil._
 
-
 object GLFWHandler {
   if (glfwInit != GLFW_TRUE) throw new RuntimeException("Unable to initialize GLFW!")
 

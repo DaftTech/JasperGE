@@ -5,9 +5,6 @@ import com.dafttech.jasper.render.VertexBuffer
 
 import scala.collection.mutable
 
-/**
-  * A scene
-  */
 class Scene {
   val vertexBuffer: VertexBuffer = new VertexBuffer()
   val models = new mutable.MutableList[model.RObject]()
