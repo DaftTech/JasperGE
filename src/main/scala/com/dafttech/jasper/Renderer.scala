@@ -10,15 +10,15 @@ abstract class SceneRenderer {
   def render(scene: Scene)
 }
 
-object ModelRenderer {
-  val Quads = new ModelRenderer {
-    override def render(model: Model): Unit = {
-      glDrawArrays(GL_QUADS, 0, 4)
+object ObjectRenderer {
+  val Triangles = new ObjectRenderer {
+    override def render(obj: Object): Unit = {
+      glDrawElements(GL_TRIANGLES, 2, GL_INT, 0)
     }
   }
 }
 
 //Renders a tesselated model into an 2D Image
-abstract class ModelRenderer {
-  def render(model: Model)
+abstract class ObjectRenderer {
+  def render(model: Object)
 }

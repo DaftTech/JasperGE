@@ -22,20 +22,21 @@ object Main {
     val path = new File("./")
     println(path.getAbsolutePath)
 
-    val model = new Model
-    scn.addModel(model)
+    val obj = new Object
+
+    scn.addModel(obj)
 
     val scnR = new SceneRenderer {
       override def render(scene: Scene): Unit = {
         for(m <- scene.models) {
-          m.modelRenderer.render(model)
+          m.objectRenderer.render(obj)
         }
       }
     }
 
     Future {
       while(true) {
-        model.modelTesselator.tesselate(model)
+        obj.tesselator.tesselate(obj)
       }
     }
 

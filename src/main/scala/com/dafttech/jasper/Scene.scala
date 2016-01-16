@@ -7,11 +7,11 @@ import scala.collection.mutable
   */
 class Scene {
   val vertexBuffer: VertexBuffer = new VertexBuffer()
-  val models = new mutable.MutableList[Model]()
+  val models = new mutable.MutableList[Object]()
 
-  def addModel(model: Model) = {
-    model.vbLoc = vertexBuffer.allocate(model.modelTesselator.getSize)
-    model.modelTesselator.tesselate(model)
+  def addModel(model: Object) = {
+    model.vbLoc = vertexBuffer.allocate(model.tesselator.getVtxCount, model.tesselator.getIdxCount)
+    model.tesselator.tesselate(model)
 
     models += model
   }
