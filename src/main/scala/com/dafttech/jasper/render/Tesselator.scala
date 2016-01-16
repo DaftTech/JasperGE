@@ -1,6 +1,6 @@
 package com.dafttech.jasper.render
 
-import com.dafttech.jasper.model.RObject
+import com.dafttech.jasper.scene.RObject
 import com.dafttech.jasper.util.Vertex
 
 import scala.collection.mutable

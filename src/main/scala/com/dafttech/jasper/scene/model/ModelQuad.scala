@@ -1,12 +1,6 @@
-package com.dafttech.jasper.model
+package com.dafttech.jasper.scene.model
 
 import com.dafttech.jasper.util.Vertex
-
-abstract class Model {
-  def getVertices: Seq[Vertex]
-
-  def getIndices: Seq[Int]
-}
 
 class ModelQuad(val x: Float, val y: Float, val w: Float, val h: Float) extends Model {
   val vertices = Seq[Vertex](new Vertex(Seq[Float](x, y, 0, 1, 0, 0, 0)),

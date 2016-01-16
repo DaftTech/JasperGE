@@ -1,7 +1,7 @@
 package com.dafttech.jasper.window
 
-import com.dafttech.jasper.model.Scene
 import com.dafttech.jasper.render.SceneRenderer
+import com.dafttech.jasper.scene.Scene
 import org.lwjgl.glfw.GLFW._
 import org.lwjgl.glfw.{GLFWErrorCallback, GLFWKeyCallback, GLFWVidMode}
 import org.lwjgl.opengl.GL

@@ -2,8 +2,9 @@ package com.dafttech.jasper
 
 import java.io.File
 
-import com.dafttech.jasper.model.{ModelQuad, RObject, Scene}
 import com.dafttech.jasper.render.SceneRenderer
+import com.dafttech.jasper.scene.model.ModelQuad
+import com.dafttech.jasper.scene.{RObject, Scene}
 import com.dafttech.jasper.window.Window
 
 import scala.concurrent.ExecutionContext.Implicits.global

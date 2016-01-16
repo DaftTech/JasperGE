@@ -1,6 +1,6 @@
 package com.dafttech.jasper.render
 
-import com.dafttech.jasper.model.{RObject, Scene}
+import com.dafttech.jasper.scene.{RObject, Scene}
 import org.lwjgl.opengl.GL11._
 
 abstract class SceneRenderer {

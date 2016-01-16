@@ -1,6 +1,7 @@
-package com.dafttech.jasper.model
+package com.dafttech.jasper.scene
 
 import com.dafttech.jasper.render.{ObjectRenderer, Tesselator, VertexBufferLocation}
+import com.dafttech.jasper.scene.model.Model
 
 import scala.collection.mutable
 
