@@ -1,6 +1,6 @@
 package com.dafttech.jasper.window
 
-import java.nio.{FloatBuffer, ByteBuffer}
+import java.nio.{ByteOrder, FloatBuffer, ByteBuffer}
 
 import com.dafttech.jasper.render.SceneRenderer
 import com.dafttech.jasper.scene.Scene
@@ -65,7 +65,7 @@ class Window(val width: Int, val height: Int) {
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
 
-    val matrix = FloatBuffer.allocate(16)
+    val matrix = ByteBuffer.allocateDirect(4*16).order(ByteOrder.LITTLE_ENDIAN).asFloatBuffer()
 
     val fov = 60.0f
     val aspect = 800.0f/600.0f
@@ -80,6 +80,13 @@ class Window(val width: Int, val height: Int) {
     matrix.put(0);      matrix.put(yScale); matrix.put(0);                                      matrix.put(0)
     matrix.put(0);      matrix.put(0);      matrix.put(-((zFar + zNear) / frustrumLength));     matrix.put(-1)
     matrix.put(0);      matrix.put(0);      matrix.put(-((2 * zFar * zNear) / frustrumLength)); matrix.put(0)
+
+    matrix.rewind()
+
+    glLoadMatrixf(matrix)
+
+    glTranslatef(0, -0.4f, 0)
+    glRotatef(20, 1, 0, 0)
 
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
