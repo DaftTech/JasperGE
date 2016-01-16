@@ -39,6 +39,7 @@ object Main {
 
     Future {
       while (true) {
+        Future.wait(50)
         obj.tesselator.tesselate(obj)
       }
     }

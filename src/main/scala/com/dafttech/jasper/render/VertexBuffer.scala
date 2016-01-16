@@ -45,7 +45,7 @@ class VertexBuffer {
       vertexBuffer.position(location.vertexPosition)
       vertexBuffer.put(vertices.flatMap(_.values).toArray)
 
-      //println(s"${vertices.length} vertices")
+      changed = true
     }
   }
 
@@ -54,23 +54,28 @@ class VertexBuffer {
       indexBuffer.rewind()
       indexBuffer.position(location.indexPosition)
       indexBuffer.put(indices.map(_ + location.vertexPosition).toArray)
+
+      changed = true
     }
   }
 
   def commit = {
-    this.synchronized {
-      vertexBuffer.rewind()
-      vbo.put(vertexByteBuffer, vertexByteBuffer.capacity())
+    if(changed) {
+      this.synchronized {
+        vertexBuffer.rewind()
+        vbo.put(vertexByteBuffer, vertexByteBuffer.capacity())
 
-      glBindBuffer(GL_ARRAY_BUFFER, vboID)
-      glBufferData(GL_ARRAY_BUFFER, vertexBuffer, GL_STATIC_DRAW)
+        glBindBuffer(GL_ARRAY_BUFFER, vboID)
+        glBufferData(GL_ARRAY_BUFFER, vertexBuffer, GL_STATIC_DRAW)
 
-      indexBuffer.rewind()
-      ibo.put(indexByteBuffer, indexByteBuffer.capacity())
+        indexBuffer.rewind()
+        ibo.put(indexByteBuffer, indexByteBuffer.capacity())
 
-      glBindBuffer(GL_ARRAY_BUFFER, iboID)
-      glBufferData(GL_ARRAY_BUFFER, indexBuffer, GL_STATIC_DRAW)
+        glBindBuffer(GL_ARRAY_BUFFER, iboID)
+        glBufferData(GL_ARRAY_BUFFER, indexBuffer, GL_STATIC_DRAW)
+      }
     }
+    changed = false
   }
 
   def activate = {
