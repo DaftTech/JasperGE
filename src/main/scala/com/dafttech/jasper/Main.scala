@@ -34,7 +34,7 @@ object Main {
 
     Future {
       while (true) {
-        Future.wait(50)
+        obj.transformation.set(obj.transformation.rotateZ(1f))
       }
     }
 

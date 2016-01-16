@@ -11,6 +11,7 @@ object ObjectRenderer {
   val Triangles = new ObjectRenderer {
     override def render(obj: PlacedModel): Unit = {
       glLoadIdentity()
+      matBuffer.rewind()
       glLoadMatrixf(obj.transformation.get(matBuffer))
       glDrawElements(GL_TRIANGLES, obj.tesselator.getIdxCount, GL_UNSIGNED_INT, 0)
     }
