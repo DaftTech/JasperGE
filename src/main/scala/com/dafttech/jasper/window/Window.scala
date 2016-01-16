@@ -58,8 +58,8 @@ class Window(val width: Int, val height: Int) {
 
   val matrix = ByteBuffer.allocateDirect(4 * 16).order(ByteOrder.LITTLE_ENDIAN).asFloatBuffer()
 
-  val fov = 60.0f
-  val aspect = 800.0f / 600.0f
+  val fov = 75.0f
+  val aspect = width.toFloat / height.toFloat
   val zFar = 1000f
   val zNear = 0.001f
 
