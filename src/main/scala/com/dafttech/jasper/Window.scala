@@ -1,15 +1,14 @@
 package com.dafttech.jasper
 
-import org.lwjgl.Version
 import org.lwjgl.glfw.GLFW._
-import org.lwjgl.glfw.{GLFWVidMode, GLFWKeyCallback, GLFWErrorCallback}
-import org.lwjgl.opengl.{GL11, GL}
+import org.lwjgl.glfw.{GLFWErrorCallback, GLFWKeyCallback, GLFWVidMode}
+import org.lwjgl.opengl.GL
 import org.lwjgl.opengl.GL11._
 import org.lwjgl.system.MemoryUtil._
 
 
 object GLFWHandler {
-  if(glfwInit != GLFW_TRUE) throw new RuntimeException("Unable to initialize GLFW!")
+  if (glfwInit != GLFW_TRUE) throw new RuntimeException("Unable to initialize GLFW!")
 
   val errorCallback = GLFWErrorCallback.createPrint(System.err)
   glfwSetErrorCallback(errorCallback)
@@ -33,7 +32,7 @@ class Window(val width: Int, val height: Int) {
   glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE)
 
   private val l_WID = glfwCreateWindow(width, height, "Hello World!", NULL, NULL)
-  if(l_WID == NULL) throw new RuntimeException("Failed to create window!")
+  if (l_WID == NULL) throw new RuntimeException("Failed to create window!")
 
   val keyCallback = new GLFWKeyCallback() {
     def invoke(window: Long, key: Int, scancode: Int, action: Int, mods: Int) {

@@ -1,6 +1,6 @@
 package com.dafttech.jasper
 
-import java.nio.{ByteOrder, ByteBuffer, IntBuffer, FloatBuffer}
+import java.nio.{ByteBuffer, ByteOrder}
 
 import org.lwjgl.opengl.GL11._
 import org.lwjgl.opengl.GL15._
@@ -15,7 +15,7 @@ object Vertex {
 }
 
 class Vertex(val values: Seq[Float]) {
-  if(values.length != Vertex.VTX_FLOAT_COUNT) throw new IllegalArgumentException("Vertex size incorrect")
+  if (values.length != Vertex.VTX_FLOAT_COUNT) throw new IllegalArgumentException("Vertex size incorrect")
 }
 
 //All vertex Buffers of a scene
@@ -30,6 +30,7 @@ class VertexBuffer {
 
   var vertexAllocPos = 0
   var indexAllocPos = 0
+
   def allocate(vtxCount: Int, idxCount: Int): VertexBufferLocation = {
     val r = new VertexBufferLocation(vertexAllocPos, indexAllocPos, this)
     vertexAllocPos += vtxCount * Vertex.VTX_FLOAT_COUNT

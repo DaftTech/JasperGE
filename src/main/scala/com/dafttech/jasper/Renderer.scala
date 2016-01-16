@@ -1,9 +1,6 @@
 package com.dafttech.jasper
 
-import java.nio.IntBuffer
-
 import org.lwjgl.opengl.GL11._
-import org.lwjgl.opengl.GL15._
 
 //Renders a scene into a 2D Image
 abstract class SceneRenderer {

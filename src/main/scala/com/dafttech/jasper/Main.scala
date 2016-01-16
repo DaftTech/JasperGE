@@ -1,14 +1,9 @@
 package com.dafttech.jasper
 
 import java.io.File
-import java.nio.file.Path
-
-import org.lwjgl.opengl.GL11
-
-import scala.concurrent.Future
-import scala.reflect.io.Directory
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 
 /**
@@ -30,19 +25,19 @@ object Main {
 
     val scnR = new SceneRenderer {
       override def render(scene: Scene): Unit = {
-        for(m <- scene.models) {
+        for (m <- scene.models) {
           m.objectRenderer.render(obj)
         }
       }
     }
 
     Future {
-      while(true) {
+      while (true) {
         obj.tesselator.tesselate(obj)
       }
     }
 
-    while(!win.shouldClose) {
+    while (!win.shouldClose) {
       win.render(scnR, scn)
     }
   }
