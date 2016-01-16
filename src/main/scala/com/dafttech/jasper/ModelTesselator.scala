@@ -4,10 +4,15 @@ package com.dafttech.jasper
   * Tesselates a model description into an VBO/VertexArray
   */
 object ModelTesselator {
-  val Triangle = new ModelTesselator()
+  val Quads = new ModelTesselatorQuads()
 }
 
-class ModelTesselator {
+abstract class ModelTesselator {
+  def getSize: Int
+  def tesselate(model: Model): Unit
+}
+
+class ModelTesselatorQuads extends ModelTesselator {
   def getSize = 4
 
   var n = 0

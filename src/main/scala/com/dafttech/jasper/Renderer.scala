@@ -11,7 +11,7 @@ abstract class SceneRenderer {
 }
 
 object ModelRenderer {
-  val Triangle = new ModelRenderer {
+  val Quads = new ModelRenderer {
     override def render(model: Model): Unit = {
       glEnableClientState(GL_VERTEX_ARRAY)
       glBindBuffer(GL_ARRAY_BUFFER, model.vbLoc.vertexBuffer.vboID)
@@ -19,8 +19,6 @@ object ModelRenderer {
       glVertexPointer(3, GL_FLOAT, 0, 0)
 
       glDrawArrays(GL_QUADS, 0, 4)
-
-      println("Render")
     }
   }
 }
