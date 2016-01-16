@@ -2,7 +2,7 @@ package com.dafttech.jasper.gl
 
 import java.nio.ByteBuffer
 
-abstract class BufferObject(size: Int) {
+abstract class BufferObject(val size: Int) {
   val bufferId = gen
   val stride = getStride
   allocate(size)
