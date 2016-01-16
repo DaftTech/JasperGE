@@ -21,7 +21,6 @@ class ModelOBJ(path: String, val pos: Point3f) extends Model {
     case s if s.startsWith("v ") => {
       val d = s.stripPrefix("v ").trim
       val ds = d.split(" +").map { s =>
-        println(s"s = $s")
         s.toFloat
       }
 

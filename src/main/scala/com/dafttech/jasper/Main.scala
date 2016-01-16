@@ -25,7 +25,11 @@ object Main {
     val obj = new RObject
 
     obj.addModel(new ModelQuad(0, 0, 0.1f, 0.1f))
-    obj.addModel(new ModelOBJ("teapot.obj", new Point3f(-50f, -50f, -350)))
+    for(x <- 1 to 15) {
+      for(y <- 1 to 15) {
+        obj.addModel(new ModelOBJ("teapot.obj", new Point3f((x-5)*10, (y-10)*10, -350)))
+      }
+    }
 
     scn.addObject(obj)
 

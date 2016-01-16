@@ -10,20 +10,20 @@ import org.lwjgl.opengl.GL15._
 case class VertexBufferLocation(vertexPosition: Int, indexPosition: Int, vertexBuffer: VertexBuffer)
 
 class VertexBuffer {
-  val vbo = new VertexBufferObject(65536, Seq(
+  val vbo = new VertexBufferObject(65536*128, Seq(
     Pointer.Vertex(3),
     Pointer.Color(4),
     Pointer.Normal))
 
-  val ibo = new IndexBufferObject(65536)
+  val ibo = new IndexBufferObject(65536*128)
 
   val vboID = glGenBuffers()
   val iboID = glGenBuffers()
 
-  private val vertexByteBuffer = ByteBuffer.allocateDirect(65536).order(ByteOrder.LITTLE_ENDIAN)
+  private val vertexByteBuffer = ByteBuffer.allocateDirect(65536*128).order(ByteOrder.LITTLE_ENDIAN)
   val vertexBuffer = vertexByteBuffer.asFloatBuffer()
 
-  private val indexByteBuffer = ByteBuffer.allocateDirect(65536).order(ByteOrder.LITTLE_ENDIAN)
+  private val indexByteBuffer = ByteBuffer.allocateDirect(65536*128).order(ByteOrder.LITTLE_ENDIAN)
   val indexBuffer = indexByteBuffer.asIntBuffer()
 
   @volatile var changed = false
