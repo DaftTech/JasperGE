@@ -4,8 +4,9 @@ import java.io.File
 
 import com.dafttech.jasper.render.SceneRenderer
 import com.dafttech.jasper.scene.model.{ModelOBJ, ModelQuad, Point3f}
-import com.dafttech.jasper.scene.{RObject, Scene}
+import com.dafttech.jasper.scene.{PlacedModel, Scene}
 import com.dafttech.jasper.window.Window
+import org.joml.Matrix4f
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -19,24 +20,14 @@ object Main {
     val win = new Window(800, 600)
     val scn = new Scene
 
-    val path = new File("./")
-    println(path.getAbsolutePath)
+    val teapot = new ModelOBJ("teapot.obj")
 
-    val obj = new RObject
-
-    obj.addModel(new ModelQuad(0, 0, 0.1f, 0.1f))
-    for(x <- 1 to 15) {
-      for(y <- 1 to 15) {
-        obj.addModel(new ModelOBJ("teapot.obj"))
-      }
-    }
-
-    scn.addObject(obj)
+    val obj = scn.addObject(new PlacedModel(teapot, new Matrix4f().translate(0, -90, -250)))
 
     val scnR = new SceneRenderer {
       override def render(scene: Scene): Unit = {
         for (m <- scene.models) {
-          m.objectRenderer.render(obj)
+          m.objectRenderer.render(m)
         }
       }
     }
@@ -44,7 +35,6 @@ object Main {
     Future {
       while (true) {
         Future.wait(50)
-        obj.tesselator.tesselate(obj)
       }
     }
 

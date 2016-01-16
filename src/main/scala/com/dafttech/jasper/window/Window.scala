@@ -112,14 +112,10 @@ class Window(val width: Int, val height: Int) {
   glEnableClientState(GL_TEXTURE_COORD_ARRAY)
   glEnableClientState(GL_NORMAL_ARRAY)
 
-  var rot = 0.0f
-
   def render(sceneRenderer: SceneRenderer, scene: Scene) = {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
-    rot += 0.01f
     glMatrixMode(GL_MODELVIEW)
-    glLoadIdentity()
 
     scene.vertexBuffer.commit
     scene.vertexBuffer.activate

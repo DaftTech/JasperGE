@@ -1,6 +1,6 @@
 package com.dafttech.jasper.render
 
-import com.dafttech.jasper.scene.RObject
+import com.dafttech.jasper.scene.PlacedModel
 import com.dafttech.jasper.util.Vertex
 
 import scala.collection.mutable
@@ -14,7 +14,7 @@ abstract class Tesselator {
 
   def getIdxCount: Int
 
-  def tesselate(model: RObject): Unit
+  def tesselate(model: PlacedModel): Unit
 }
 
 class TesselatorTriangles extends Tesselator {
@@ -25,17 +25,11 @@ class TesselatorTriangles extends Tesselator {
   var vtxC = 0
   var idxC = 0
 
-  def tesselate(obj: RObject): Unit = {
+  def tesselate(obj: PlacedModel): Unit = {
     if (obj.vbLoc == null) throw new IllegalStateException("Can't tesselate without a scene")
 
-    val vertices = new mutable.MutableList[Vertex]
-    val indices = new mutable.MutableList[Int]
-
-    for (m <- obj.models) {
-      val vtxPos = vertices.length
-      vertices ++= m.getVertices
-      indices ++= m.getIndices.map(_ + vtxPos)
-    }
+    val vertices = obj.model.getVertices
+    val indices = obj.model.getIndices
 
     vtxC = vertices.length
     idxC = indices.length
