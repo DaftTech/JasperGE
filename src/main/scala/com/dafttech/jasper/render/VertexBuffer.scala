@@ -34,7 +34,7 @@ class VertexBuffer {
       vertexBuffer.position(location.vertexPosition)
       vertexBuffer.put(vertices.flatMap(_.values).toArray)
 
-      println(s"${vertices.length} vertices at ${location.vertexPosition}")
+      //println(s"${vertices.length} vertices")
     }
   }
 
@@ -43,8 +43,6 @@ class VertexBuffer {
       indexBuffer.rewind()
       indexBuffer.position(location.indexPosition)
       indexBuffer.put(indices.map(_ + location.vertexPosition).toArray)
-
-      println(s"${indices.length} indices at ${location.indexPosition}")
     }
   }
 

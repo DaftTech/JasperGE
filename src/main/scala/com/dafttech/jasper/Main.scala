@@ -3,7 +3,7 @@ package com.dafttech.jasper
 import java.io.File
 
 import com.dafttech.jasper.render.SceneRenderer
-import com.dafttech.jasper.scene.model.ModelQuad
+import com.dafttech.jasper.scene.model.{Point3f, ModelOBJ, ModelQuad}
 import com.dafttech.jasper.scene.{RObject, Scene}
 import com.dafttech.jasper.window.Window
 
@@ -26,6 +26,7 @@ object Main {
 
     obj.addModel(new ModelQuad(200, 200, 100, 100))
     obj.addModel(new ModelQuad(500, 200, 100, 100))
+    obj.addModel(new ModelOBJ("teapot.obj", new Point3f(200, 450, 0)))
 
     scn.addObject(obj)
 
