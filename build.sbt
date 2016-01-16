@@ -19,6 +19,7 @@ libraryDependencies ++= Seq(
     classifier "natives-windows"
     classifier "natives-linux"
     classifier "natives-osx",
+  "org.joml" % "joml" % "1.6.8",
   "org.scala-lang" % "scala-compiler" % "2.11.7",
   "org.scala-lang" % "scala-reflect" % "2.11.7",
   "com.typesafe.akka" %% "akka-actor" % "2.4.0",
