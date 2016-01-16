@@ -18,20 +18,16 @@ class VertexBufferObject(size: Int, pointers: Seq[Pointer]) extends BufferObject
     glBufferData(GL_ARRAY_BUFFER, size, null, GL_DYNAMIC_DRAW)
   }
 
-  override protected def bind: Boolean = {
-    val value = super.bind
-    if (value) glBindBuffer(GL_ARRAY_BUFFER, bufferId)
-    value
+  override protected def bind: Unit = {
+    glBindBuffer(GL_ARRAY_BUFFER, bufferId)
   }
 
-  override protected def unbind: Boolean = {
-    val value = super.unbind
-    if (value) glBindBuffer(GL_ARRAY_BUFFER, 0)
-    value
+  override protected def unbind: Unit = {
+    glBindBuffer(GL_ARRAY_BUFFER, 0)
   }
 
   def activate: Unit = {
-    silentBind
+    bind
     Pointer.setup(pointers, stride)
   }
 

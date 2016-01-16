@@ -18,21 +18,17 @@ class IndexBufferObject(size: Int) extends BufferObject(size) {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, null, GL_DYNAMIC_DRAW)
   }
 
-  override protected def bind: Boolean = {
-    val value = super.bind
-    if (value) glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferId)
-    value
+  override protected def bind: Unit = {
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferId)
   }
 
-  override protected def unbind: Boolean = {
-    val value = super.unbind
-    if (value) glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0)
-    value
+  override protected def unbind: Unit = {
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0)
   }
 
   def activate(vbo: VertexBufferObject) = {
     vbo.activate
-    silentBind
+    bind
   }
 
   def render(vbo: VertexBufferObject): Unit = render(vbo, size / stride)
