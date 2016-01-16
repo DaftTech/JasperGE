@@ -9,16 +9,14 @@ abstract class Pointer {
 }
 
 object Pointer {
-  def setup(pointers: Seq[Pointer]) = {
-    val stride = pointers.foldLeft(0)((last, e) => last + e.stride(pointers))
-
+  def setup(pointers: Seq[Pointer], stride: Int): Unit = {
     pointers.foldLeft(0) { (last, e) =>
       e.setup(stride, last)
       last + e.stride(pointers)
     }
-
-    stride
   }
+
+  def stride(pointers: Seq[Pointer]) = pointers.foldLeft(0)((last, e) => last + e.stride(pointers))
 
   case class Vertex(size: Int) extends Pointer {
     override def setup(stride: Int, offset: Int): Unit = {

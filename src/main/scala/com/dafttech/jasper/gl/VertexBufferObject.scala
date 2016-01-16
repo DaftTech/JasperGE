@@ -12,7 +12,7 @@ class VertexBufferObject(size: Int, pointers: Seq[Pointer]) extends BufferObject
     glBufferSubData(GL_ARRAY_BUFFER, offset, length, buffer)
   }
 
-  override protected def getStride: Int = Pointer.setup(pointers)
+  override protected def getStride: Int = Pointer.stride(pointers)
 
   override protected def allocate(size: Int): Unit = this.use {
     glBufferData(GL_ARRAY_BUFFER, size, null, GL_DYNAMIC_DRAW)
@@ -33,6 +33,7 @@ class VertexBufferObject(size: Int, pointers: Seq[Pointer]) extends BufferObject
   def render: Unit = render(size / stride)
 
   def render(count: Int, offset: Int = 0): Unit = this.use {
+    Pointer.setup(pointers, stride)
     glDrawArrays(GL_TRIANGLES, offset, count)
   }
 

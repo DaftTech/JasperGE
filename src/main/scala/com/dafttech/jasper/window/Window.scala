@@ -1,6 +1,6 @@
 package com.dafttech.jasper.window
 
-import java.nio.{ByteOrder, FloatBuffer, ByteBuffer}
+import java.nio.{ByteBuffer, ByteOrder, FloatBuffer}
 
 import com.dafttech.jasper.render.SceneRenderer
 import com.dafttech.jasper.scene.Scene
@@ -8,7 +8,6 @@ import org.lwjgl.glfw.GLFW._
 import org.lwjgl.glfw.{GLFWErrorCallback, GLFWKeyCallback, GLFWVidMode}
 import org.lwjgl.opengl.GL
 import org.lwjgl.opengl.GL11._
-import org.lwjgl.ovr.OVRMatrix4f
 import org.lwjgl.system.MemoryUtil._
 
 object GLFWHandler {
@@ -57,10 +56,10 @@ class Window(val width: Int, val height: Int) {
   glMatrixMode(GL_PROJECTION)
   glLoadIdentity()
 
-  val matrix = ByteBuffer.allocateDirect(4*16).order(ByteOrder.LITTLE_ENDIAN).asFloatBuffer()
+  val matrix = ByteBuffer.allocateDirect(4 * 16).order(ByteOrder.LITTLE_ENDIAN).asFloatBuffer()
 
   val fov = 60.0f
-  val aspect = 800.0f/600.0f
+  val aspect = 800.0f / 600.0f
   val zFar = 1000f
   val zNear = 0.001f
 
@@ -68,10 +67,22 @@ class Window(val width: Int, val height: Int) {
   val xScale = yScale / aspect
   val frustrumLength = zFar - zNear
 
-  matrix.put(xScale); matrix.put(0);      matrix.put(0);                                      matrix.put(0)
-  matrix.put(0);      matrix.put(yScale); matrix.put(0);                                      matrix.put(0)
-  matrix.put(0);      matrix.put(0);      matrix.put(-((zFar + zNear) / frustrumLength));     matrix.put(-1)
-  matrix.put(0);      matrix.put(0);      matrix.put(-((2 * zFar * zNear) / frustrumLength)); matrix.put(0)
+  matrix.put(xScale);
+  matrix.put(0);
+  matrix.put(0);
+  matrix.put(0)
+  matrix.put(0);
+  matrix.put(yScale);
+  matrix.put(0);
+  matrix.put(0)
+  matrix.put(0);
+  matrix.put(0);
+  matrix.put(-((zFar + zNear) / frustrumLength));
+  matrix.put(-1)
+  matrix.put(0);
+  matrix.put(0);
+  matrix.put(-((2 * zFar * zNear) / frustrumLength));
+  matrix.put(0)
 
   matrix.rewind()
 
@@ -88,7 +99,7 @@ class Window(val width: Int, val height: Int) {
 
   glLightfv(GL_LIGHT1, GL_AMBIENT, temp.put(lightAmbient).flip().asInstanceOf[FloatBuffer])
   glLightfv(GL_LIGHT1, GL_DIFFUSE, temp.put(lightDiffuse).flip().asInstanceOf[FloatBuffer])
-  glLightfv(GL_LIGHT1, GL_POSITION,temp.put(lightPosition).flip().asInstanceOf[FloatBuffer])
+  glLightfv(GL_LIGHT1, GL_POSITION, temp.put(lightPosition).flip().asInstanceOf[FloatBuffer])
 
   glEnable(GL_LIGHT1)
   glEnable(GL_LIGHTING)

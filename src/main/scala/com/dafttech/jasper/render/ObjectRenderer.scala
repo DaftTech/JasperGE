@@ -1,11 +1,7 @@
 package com.dafttech.jasper.render
 
-import com.dafttech.jasper.scene.{RObject, Scene}
+import com.dafttech.jasper.scene.RObject
 import org.lwjgl.opengl.GL11._
-
-abstract class SceneRenderer {
-  def render(scene: Scene)
-}
 
 object ObjectRenderer {
   val Triangles = new ObjectRenderer {

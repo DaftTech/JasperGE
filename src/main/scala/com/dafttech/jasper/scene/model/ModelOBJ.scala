@@ -4,7 +4,9 @@ import com.dafttech.jasper.util.Vertex
 
 
 class ModelOBJ(path: String, val pos: Point3f) extends Model {
+
   case class OBJFace(i1p: Int, i1n: Int, i1t: Int, i2p: Int, i2n: Int, i2t: Int, i3p: Int, i3n: Int, i3t: Int)
+
   case class OBJVertex(pointIndex: Int, normalsIndex: Int, texcoordIndex: Int)
 
   val file = io.Source.fromFile(path).getLines()
@@ -37,7 +39,7 @@ class ModelOBJ(path: String, val pos: Point3f) extends Model {
 
       val dm = ds.map(_.split("/").map(_.toInt - 1))
 
-      if(dm(0).length == 1)
+      if (dm(0).length == 1)
         new OBJFace(dm(0)(0), dm(0)(0), dm(0)(0), dm(1)(0), dm(1)(0), dm(1)(0), dm(2)(0), dm(2)(0), dm(2)(0))
       else
         new OBJFace(dm(0)(0), dm(0)(1), dm(0)(2), dm(1)(0), dm(1)(1), dm(1)(2), dm(2)(0), dm(2)(1), dm(2)(2))

@@ -3,7 +3,7 @@ package com.dafttech.jasper
 import java.io.File
 
 import com.dafttech.jasper.render.SceneRenderer
-import com.dafttech.jasper.scene.model.{Point3f, ModelOBJ, ModelQuad}
+import com.dafttech.jasper.scene.model.{ModelOBJ, ModelQuad, Point3f}
 import com.dafttech.jasper.scene.{RObject, Scene}
 import com.dafttech.jasper.window.Window
 
