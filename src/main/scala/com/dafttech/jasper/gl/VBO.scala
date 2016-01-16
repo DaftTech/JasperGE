@@ -46,17 +46,3 @@ class VBO(size: Int, pointers: Seq[Pointer]) {
 
   def close = glDeleteBuffers(vboId)
 }
-
-object VBO {
-  private var enabled = false
-
-  def setup() = {
-    if (!enabled) {
-      glEnableClientState(GL_VERTEX_ARRAY)
-      glEnableClientState(GL_NORMAL_ARRAY)
-      glEnableClientState(GL_COLOR_ARRAY)
-      glEnableClientState(GL_TEXTURE_COORD_ARRAY)
-      enabled = true
-    }
-  }
-}
