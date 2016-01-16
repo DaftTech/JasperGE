@@ -3,7 +3,7 @@ package com.dafttech.jasper.scene.model
 import com.dafttech.jasper.util.Vertex
 
 
-class ModelOBJ(path: String, val pos: Point3f) extends Model {
+class ModelOBJ(path: String) extends Model {
 
   case class OBJFace(i1p: Int, i1n: Int, i1t: Int, i2p: Int, i2n: Int, i2t: Int, i3p: Int, i3n: Int, i3t: Int)
 
@@ -66,9 +66,9 @@ class ModelOBJ(path: String, val pos: Point3f) extends Model {
 
   val vertices = fDistinctVertices.map { v =>
     new Vertex(Seq[Float](
-      fPoints(v.pointIndex).x + pos.x,
-      fPoints(v.pointIndex).y + pos.y,
-      fPoints(v.pointIndex).z + pos.z,
+      fPoints(v.pointIndex).x,
+      fPoints(v.pointIndex).y,
+      fPoints(v.pointIndex).z,
       1,
       1,
       0,
