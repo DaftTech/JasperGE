@@ -13,7 +13,8 @@ abstract class SceneRenderer {
 object ObjectRenderer {
   val Triangles = new ObjectRenderer {
     override def render(obj: Object): Unit = {
-      glDrawElements(GL_TRIANGLES, 2, GL_INT, 0)
+      glDrawArrays(GL_QUADS, 0, 1)
+      //glDrawElements(GL_TRIANGLES, 2, GL_INT, 0)
     }
   }
 }

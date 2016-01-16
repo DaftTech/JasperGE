@@ -43,6 +43,8 @@ class VertexBuffer {
       vertexBuffer.rewind()
       vertexBuffer.position(location.vertexPosition)
       vertexBuffer.put(vertices.flatMap(_.values).toArray)
+
+      println(s"${vertices.length} vertices")
     }
   }
 
@@ -51,6 +53,8 @@ class VertexBuffer {
       indexBuffer.rewind()
       indexBuffer.position(location.indexPosition)
       indexBuffer.put(indices.map(_ + location.vertexPosition).toArray)
+
+      println(s"${indices.length} indices")
     }
   }
 
@@ -71,8 +75,8 @@ class VertexBuffer {
     glEnableClientState(GL_COLOR_ARRAY)
     glBindBuffer(GL_ARRAY_BUFFER, vboID)
 
-    glVertexPointer(3, GL_FLOAT, 7 * 4, 0)
-    glColorPointer(4, GL_FLOAT, 7 * 4, 12)
+    glVertexPointer(3, GL_FLOAT, Vertex.VTX_FLOAT_COUNT * 4, 0)
+    glColorPointer(4, GL_FLOAT, Vertex.VTX_FLOAT_COUNT * 4, 12)
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID)
   }
