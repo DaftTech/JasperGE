@@ -46,10 +46,10 @@ class ModelOBJ(path: String, val pos: Point3f) extends Model {
     case _ => null
   }.toArray
 
-  val fPoints = fParsed.filter(_.isInstanceOf[Point3f]).map(_.asInstanceOf[Point3f]).toArray
-  val fNormals = fParsed.filter(_.isInstanceOf[Normal3f]).map(_.asInstanceOf[Normal3f]).toArray
-  val fTexCoords = fParsed.filter(_.isInstanceOf[TexCoord]).map(_.asInstanceOf[TexCoord]).toArray
-  val fFaces = fParsed.filter(_.isInstanceOf[OBJFace]).map(_.asInstanceOf[OBJFace]).toArray
+  val fPoints = fParsed.filter(_.isInstanceOf[Point3f]).map(_.asInstanceOf[Point3f])
+  val fNormals = fParsed.filter(_.isInstanceOf[Normal3f]).map(_.asInstanceOf[Normal3f])
+  val fTexCoords = fParsed.filter(_.isInstanceOf[TexCoord]).map(_.asInstanceOf[TexCoord])
+  val fFaces = fParsed.filter(_.isInstanceOf[OBJFace]).map(_.asInstanceOf[OBJFace])
 
   println(s"Model loading with ${fPoints.length} points and ${fFaces.length} faces")
 
@@ -68,8 +68,8 @@ class ModelOBJ(path: String, val pos: Point3f) extends Model {
       fPoints(v.pointIndex).x + pos.x,
       fPoints(v.pointIndex).y + pos.y,
       fPoints(v.pointIndex).z + pos.z,
-      0,
-      0,
+      1,
+      1,
       0,
       0,
       fNormals(v.normalsIndex).x,

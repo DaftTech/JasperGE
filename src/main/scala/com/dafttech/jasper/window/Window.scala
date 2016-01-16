@@ -1,11 +1,14 @@
 package com.dafttech.jasper.window
 
+import java.nio.{FloatBuffer, ByteBuffer}
+
 import com.dafttech.jasper.render.SceneRenderer
 import com.dafttech.jasper.scene.Scene
 import org.lwjgl.glfw.GLFW._
 import org.lwjgl.glfw.{GLFWErrorCallback, GLFWKeyCallback, GLFWVidMode}
 import org.lwjgl.opengl.GL
 import org.lwjgl.opengl.GL11._
+import org.lwjgl.ovr.OVRMatrix4f
 import org.lwjgl.system.MemoryUtil._
 
 object GLFWHandler {
@@ -61,7 +64,23 @@ class Window(val width: Int, val height: Int) {
 
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
-    glOrtho(0, 800, 0, 600, 1, -1)
+
+    val matrix = FloatBuffer.allocate(16)
+
+    val fov = 60.0f
+    val aspect = 800.0f/600.0f
+    val zFar = 1000f
+    val zNear = 0.001f
+
+    val yScale = (1.0f / Math.tan(Math.toRadians(fov / 2))).toFloat
+    val xScale = yScale / aspect
+    val frustrumLength = zFar - zNear
+
+    matrix.put(xScale); matrix.put(0);      matrix.put(0);                                      matrix.put(0)
+    matrix.put(0);      matrix.put(yScale); matrix.put(0);                                      matrix.put(0)
+    matrix.put(0);      matrix.put(0);      matrix.put(-((zFar + zNear) / frustrumLength));     matrix.put(-1)
+    matrix.put(0);      matrix.put(0);      matrix.put(-((2 * zFar * zNear) / frustrumLength)); matrix.put(0)
+
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
 

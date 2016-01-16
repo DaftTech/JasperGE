@@ -24,9 +24,8 @@ object Main {
 
     val obj = new RObject
 
-    obj.addModel(new ModelQuad(200, 200, 100, 100))
-    obj.addModel(new ModelQuad(500, 200, 100, 100))
-    obj.addModel(new ModelOBJ("teapot.obj", new Point3f(200, 450, 0)))
+    //obj.addModel(new ModelQuad(0, 0, 0.1f, 0.1f))
+    obj.addModel(new ModelOBJ("teapot.obj", new Point3f(-10f, -10f, 150)))
 
     scn.addObject(obj)
 
