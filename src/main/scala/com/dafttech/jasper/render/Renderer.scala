@@ -10,8 +10,8 @@ abstract class SceneRenderer {
 
 object ObjectRenderer {
   val Triangles = new ObjectRenderer {
-    override def render(obj: model.RObject): Unit = {
-      glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0)
+    override def render(obj: RObject): Unit = {
+      glDrawElements(GL_TRIANGLES, obj.tesselator.getIdxCount, GL_UNSIGNED_INT, 0)
     }
   }
 }

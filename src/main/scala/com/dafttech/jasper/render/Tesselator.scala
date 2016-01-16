@@ -17,9 +17,11 @@ abstract class Tesselator {
 }
 
 class TesselatorTriangles extends Tesselator {
-  def getVtxCount = 4
+  def getVtxCount = vtxC
+  def getIdxCount = idxC
 
-  def getIdxCount = 6
+  var vtxC = 0
+  var idxC = 0
 
   def tesselate(obj: RObject): Unit = {
     if (obj.vbLoc == null) throw new IllegalStateException("Can't tesselate without a scene")
@@ -32,6 +34,9 @@ class TesselatorTriangles extends Tesselator {
       vertices ++= m.getVertices
       indices ++= m.getIndices.map(_ + vtxPos)
     }
+
+    vtxC = vertices.length
+    idxC = indices.length
 
     obj.vbLoc.vertexBuffer.setVertices(obj.vbLoc, vertices)
     obj.vbLoc.vertexBuffer.setIndices(obj.vbLoc, indices)

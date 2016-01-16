@@ -24,6 +24,7 @@ object Main {
     val obj = new RObject
 
     obj.addModel(new ModelQuad(200, 200, 100, 100))
+    obj.addModel(new ModelQuad(500, 200, 100, 100))
 
     scn.addObject(obj)
 

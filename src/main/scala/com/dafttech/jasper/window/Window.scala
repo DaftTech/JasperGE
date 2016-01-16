@@ -69,8 +69,6 @@ class Window(val width: Int, val height: Int) {
     scene.vertexBuffer.activate
 
     sceneRenderer.render(scene)
-    glTranslatef(300, 0, 0)
-    sceneRenderer.render(scene)
 
     glfwSwapBuffers(l_WID)
     glfwPollEvents()
