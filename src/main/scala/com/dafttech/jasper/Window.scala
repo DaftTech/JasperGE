@@ -51,17 +51,27 @@ class Window(val width: Int, val height: Int) {
   GL.createCapabilities()
   glClearColor(0.5f, 0.5f, 0.5f, 0.0f)
 
+
+  var rot = 0.0f
+
   def render(sceneRenderer: SceneRenderer, scene: Scene) = {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
-    GL11.glMatrixMode(GL11.GL_PROJECTION)
-    GL11.glLoadIdentity()
-    GL11.glOrtho(0, 800, 0, 600, 1, -1)
-    GL11.glMatrixMode(GL11.GL_MODELVIEW)
+    rot += 0.01f
+
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    glOrtho(0, 800, 0, 600, 1, -1)
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
 
     scene.vertexBuffer.commit
     scene.vertexBuffer.activate
+
     sceneRenderer.render(scene)
+    glTranslatef(300, 0, 0)
+    sceneRenderer.render(scene)
+
     glfwSwapBuffers(l_WID)
     glfwPollEvents()
   }
