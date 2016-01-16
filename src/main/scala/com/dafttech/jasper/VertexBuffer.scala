@@ -2,6 +2,7 @@ package com.dafttech.jasper
 
 import java.nio.{ByteOrder, ByteBuffer, IntBuffer, FloatBuffer}
 
+import org.lwjgl.opengl.GL11._
 import org.lwjgl.opengl.GL15._
 
 //A specific location in a vertex buffer (a tesselated model
@@ -10,7 +11,7 @@ class VertexBufferLocation(val index: Int, val vertexBuffer: VertexBuffer) {
 }
 
 object Vertex {
-  val VTX_FLOAT_COUNT = 3
+  val VTX_FLOAT_COUNT = 7
 }
 
 class Vertex(val values: Seq[Float]) {
@@ -47,5 +48,14 @@ class VertexBuffer {
       glBindBuffer(GL_ARRAY_BUFFER, vboID)
       glBufferData(GL_ARRAY_BUFFER, vertexBuffer, GL_STATIC_DRAW)
     }
+  }
+
+  def activate = {
+    glEnableClientState(GL_VERTEX_ARRAY)
+    glEnableClientState(GL_COLOR_ARRAY)
+    glBindBuffer(GL_ARRAY_BUFFER, this.vboID)
+
+    glVertexPointer(3, GL_FLOAT, 7 * 4, 0)
+    glColorPointer(4, GL_FLOAT, 7 * 4, 12)
   }
 }

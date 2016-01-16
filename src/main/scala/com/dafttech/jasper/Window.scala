@@ -59,14 +59,8 @@ class Window(val width: Int, val height: Int) {
     GL11.glOrtho(0, 800, 0, 600, 1, -1)
     GL11.glMatrixMode(GL11.GL_MODELVIEW)
 
-    /*GL11.glBegin(GL11.GL_QUADS)
-    GL11.glVertex3f(100,100,0)
-    GL11.glVertex3f(100+200,100,0)
-    GL11.glVertex3f(100+200,100+200,0)
-    GL11.glVertex3f(100,100+200,0)
-    GL11.glEnd()*/
-
     scene.vertexBuffer.commit
+    scene.vertexBuffer.activate
     sceneRenderer.render(scene)
     glfwSwapBuffers(l_WID)
     glfwPollEvents()
