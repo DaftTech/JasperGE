@@ -1,4 +1,4 @@
-package com.dafttech.jasper
+package com.dafttech.jasper.render
 
 import java.nio.{ByteBuffer, ByteOrder}
 

@@ -1,4 +1,6 @@
-package com.dafttech.jasper
+package com.dafttech.jasper.model
+
+import com.dafttech.jasper.render.Vertex
 
 /**
   * Created by Fabian on 16.01.2016.

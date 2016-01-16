@@ -1,4 +1,6 @@
-package com.dafttech.jasper
+package com.dafttech.jasper.render
+
+import com.dafttech.jasper.model.RObject
 
 import scala.collection.mutable
 
@@ -14,7 +16,7 @@ abstract class Tesselator {
 
   def getIdxCount: Int
 
-  def tesselate(model: Object): Unit
+  def tesselate(model: RObject): Unit
 }
 
 class TesselatorTriangles extends Tesselator {
@@ -22,7 +24,7 @@ class TesselatorTriangles extends Tesselator {
 
   def getIdxCount = 6
 
-  def tesselate(obj: Object): Unit = {
+  def tesselate(obj: RObject): Unit = {
     if (obj.vbLoc == null) throw new IllegalStateException("Can't tesselate without a scene")
 
     val vertices = new mutable.MutableList[Vertex]

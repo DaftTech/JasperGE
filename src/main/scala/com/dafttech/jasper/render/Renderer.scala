@@ -1,5 +1,7 @@
-package com.dafttech.jasper
+package com.dafttech.jasper.render
 
+import com.dafttech.jasper.model
+import com.dafttech.jasper.model.{RObject, Scene}
 import org.lwjgl.opengl.GL11._
 
 //Renders a scene into a 2D Image
@@ -9,7 +11,7 @@ abstract class SceneRenderer {
 
 object ObjectRenderer {
   val Triangles = new ObjectRenderer {
-    override def render(obj: Object): Unit = {
+    override def render(obj: model.RObject): Unit = {
       glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0)
     }
   }
@@ -17,5 +19,5 @@ object ObjectRenderer {
 
 //Renders a tesselated model into an 2D Image
 abstract class ObjectRenderer {
-  def render(model: Object)
+  def render(model: RObject)
 }
