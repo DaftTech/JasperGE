@@ -24,6 +24,8 @@ object Main {
 
     val obj = new Object
 
+    obj.addModel(new ModelQuad(200, 200, 100, 100))
+
     scn.addModel(obj)
 
     val scnR = new SceneRenderer {
