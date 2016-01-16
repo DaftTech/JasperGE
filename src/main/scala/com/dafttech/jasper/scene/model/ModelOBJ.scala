@@ -18,8 +18,6 @@ class ModelOBJ(path: String, val pos: Point3f) extends Model {
     }
     case s if s.startsWith("v ") => {
       val d = s.stripPrefix("v ").trim
-      println(d)
-      println(d.split(" +"))
       val ds = d.split(" +").map { s =>
         println(s"s = $s")
         s.toFloat
@@ -37,7 +35,7 @@ class ModelOBJ(path: String, val pos: Point3f) extends Model {
       val d = s.stripPrefix("f ").trim
       val ds = d.split(" +")
 
-      val dm = ds.map(_.split("/").map(_.toInt))
+      val dm = ds.map(_.split("/").map(_.toInt - 1))
 
       if(dm(0).length == 1)
         new OBJFace(dm(0)(0), dm(0)(0), dm(0)(0), dm(1)(0), dm(1)(0), dm(1)(0), dm(2)(0), dm(2)(0), dm(2)(0))
