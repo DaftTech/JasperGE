@@ -4,10 +4,10 @@ import com.dafttech.jasper.util.Vertex
 
 class ModelQuad(val x: Float, val y: Float, val w: Float, val h: Float) extends Model {
   val vertices = Seq[Vertex] (
-    new Vertex(Seq[Float](x,     y,     -1, 1, 0, 0, 0, 0, 0, 0)),
-    new Vertex(Seq[Float](x + w, y,     -1, 0, 1, 0, 0, 0, 0, 0)),
-    new Vertex(Seq[Float](x + w, y + h, -1, 0, 0, 1, 0, 0, 0, 0)),
-    new Vertex(Seq[Float](x,     y + h, -1, 1, 1, 1, 0, 0, 0, 0))
+    new Vertex(Seq[Float](x,     y,     -1, 1, 0, 0, 1, 0, 0, 1)),
+    new Vertex(Seq[Float](x + w, y,     -1, 0, 1, 0, 1, 0, 0, 1)),
+    new Vertex(Seq[Float](x + w, y + h, -1, 0, 0, 1, 1, 0, 0, 1)),
+    new Vertex(Seq[Float](x,     y + h, -1, 1, 1, 1, 1, 0, 0, 1))
   )
 
   def getVertices = vertices

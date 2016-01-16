@@ -71,7 +71,7 @@ class ModelOBJ(path: String, val pos: Point3f) extends Model {
       1,
       1,
       0,
-      0,
+      1,
       fNormals(v.normalsIndex).x,
       fNormals(v.normalsIndex).y,
       fNormals(v.normalsIndex).z //TODO add texcoords

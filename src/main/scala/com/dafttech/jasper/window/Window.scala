@@ -52,8 +52,49 @@ class Window(val width: Int, val height: Int) {
   glfwShowWindow(l_WID)
 
   GL.createCapabilities()
-  glClearColor(0.5f, 0.5f, 0.5f, 0.0f)
+  glClearColor(0.0f, 0.0f, 0.0f, 0.0f)
 
+  glMatrixMode(GL_PROJECTION)
+  glLoadIdentity()
+
+  val matrix = ByteBuffer.allocateDirect(4*16).order(ByteOrder.LITTLE_ENDIAN).asFloatBuffer()
+
+  val fov = 60.0f
+  val aspect = 800.0f/600.0f
+  val zFar = 1000f
+  val zNear = 0.001f
+
+  val yScale = (1.0f / Math.tan(Math.toRadians(fov / 2))).toFloat
+  val xScale = yScale / aspect
+  val frustrumLength = zFar - zNear
+
+  matrix.put(xScale); matrix.put(0);      matrix.put(0);                                      matrix.put(0)
+  matrix.put(0);      matrix.put(yScale); matrix.put(0);                                      matrix.put(0)
+  matrix.put(0);      matrix.put(0);      matrix.put(-((zFar + zNear) / frustrumLength));     matrix.put(-1)
+  matrix.put(0);      matrix.put(0);      matrix.put(-((2 * zFar * zNear) / frustrumLength)); matrix.put(0)
+
+  matrix.rewind()
+
+  glLoadMatrixf(matrix)
+
+  glTranslatef(0, -0.4f, 0)
+  glRotatef(20, 1, 0, 0)
+
+  val temp = ByteBuffer.allocateDirect(16).order(ByteOrder.nativeOrder()).asFloatBuffer()
+
+  val lightAmbient = Array(1.0f, 1.0f, 1.0f, 1.0f)
+  val lightDiffuse = Array(0.5f, 0.5f, 0.5f, 1.0f)
+  val lightPosition = Array(1.0f, 1.0f, 1.0f, 0.0f)
+
+  glLightfv(GL_LIGHT1, GL_AMBIENT, temp.put(lightAmbient).flip().asInstanceOf[FloatBuffer])
+  glLightfv(GL_LIGHT1, GL_DIFFUSE, temp.put(lightDiffuse).flip().asInstanceOf[FloatBuffer])
+  glLightfv(GL_LIGHT1, GL_POSITION,temp.put(lightPosition).flip().asInstanceOf[FloatBuffer])
+
+  glEnable(GL_LIGHT1)
+  glEnable(GL_LIGHTING)
+  glEnable(GL_COLOR)
+
+  glEnable(GL_DEPTH_TEST)
 
   var rot = 0.0f
 
@@ -61,33 +102,6 @@ class Window(val width: Int, val height: Int) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
     rot += 0.01f
-
-    glMatrixMode(GL_PROJECTION)
-    glLoadIdentity()
-
-    val matrix = ByteBuffer.allocateDirect(4*16).order(ByteOrder.LITTLE_ENDIAN).asFloatBuffer()
-
-    val fov = 60.0f
-    val aspect = 800.0f/600.0f
-    val zFar = 1000f
-    val zNear = 0.001f
-
-    val yScale = (1.0f / Math.tan(Math.toRadians(fov / 2))).toFloat
-    val xScale = yScale / aspect
-    val frustrumLength = zFar - zNear
-
-    matrix.put(xScale); matrix.put(0);      matrix.put(0);                                      matrix.put(0)
-    matrix.put(0);      matrix.put(yScale); matrix.put(0);                                      matrix.put(0)
-    matrix.put(0);      matrix.put(0);      matrix.put(-((zFar + zNear) / frustrumLength));     matrix.put(-1)
-    matrix.put(0);      matrix.put(0);      matrix.put(-((2 * zFar * zNear) / frustrumLength)); matrix.put(0)
-
-    matrix.rewind()
-
-    glLoadMatrixf(matrix)
-
-    glTranslatef(0, -0.4f, 0)
-    glRotatef(20, 1, 0, 0)
-
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
 
