@@ -16,7 +16,7 @@ class ModelQuad(val x: Float, val y: Float, val w: Float, val h: Float) extends 
 
   def getVertices = vertices
 
-  val indices = Seq[Int](0, 1, 2, 1, 2, 3)
+  val indices = Seq[Int](0, 1, 2, 0, 2, 3)
 
   def getIndices = indices
 }
