@@ -12,8 +12,8 @@ class VertexBuffer {
   val vboID = glGenBuffers()
   val iboID = glGenBuffers()
 
-  val vertexBuffer = ByteBuffer.allocateDirect(8192).order(ByteOrder.LITTLE_ENDIAN).asFloatBuffer()
-  val indexBuffer = ByteBuffer.allocateDirect(8192).order(ByteOrder.LITTLE_ENDIAN).asIntBuffer()
+  val vertexBuffer = ByteBuffer.allocateDirect(65536).order(ByteOrder.LITTLE_ENDIAN).asFloatBuffer()
+  val indexBuffer = ByteBuffer.allocateDirect(65536).order(ByteOrder.LITTLE_ENDIAN).asIntBuffer()
 
   @volatile var changed = false
 
