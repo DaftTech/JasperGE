@@ -26,7 +26,7 @@ object Main {
 
     obj.addModel(new ModelQuad(200, 200, 100, 100))
 
-    scn.addModel(obj)
+    scn.addObject(obj)
 
     val scnR = new SceneRenderer {
       override def render(scene: Scene): Unit = {
