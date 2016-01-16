@@ -1,6 +1,7 @@
 package com.dafttech.jasper.render
 
 import com.dafttech.jasper.model.RObject
+import com.dafttech.jasper.util.Vertex
 
 import scala.collection.mutable
 
@@ -18,6 +19,7 @@ abstract class Tesselator {
 
 class TesselatorTriangles extends Tesselator {
   def getVtxCount = vtxC
+
   def getIdxCount = idxC
 
   var vtxC = 0

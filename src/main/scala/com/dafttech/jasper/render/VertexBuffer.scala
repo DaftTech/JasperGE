@@ -2,18 +2,11 @@ package com.dafttech.jasper.render
 
 import java.nio.{ByteBuffer, ByteOrder}
 
+import com.dafttech.jasper.util.Vertex
 import org.lwjgl.opengl.GL11._
 import org.lwjgl.opengl.GL15._
 
 case class VertexBufferLocation(vertexPosition: Int, indexPosition: Int, vertexBuffer: VertexBuffer)
-
-object Vertex {
-  val VTX_FLOAT_COUNT = 7
-}
-
-class Vertex(val values: Seq[Float]) {
-  if (values.length != Vertex.VTX_FLOAT_COUNT) throw new IllegalArgumentException("Vertex size incorrect")
-}
 
 class VertexBuffer {
   val vboID = glGenBuffers()

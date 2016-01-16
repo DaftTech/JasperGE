@@ -1,6 +1,5 @@
 package com.dafttech.jasper.render
 
-import com.dafttech.jasper.model
 import com.dafttech.jasper.model.{RObject, Scene}
 import org.lwjgl.opengl.GL11._
 
