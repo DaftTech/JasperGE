@@ -3,7 +3,7 @@ package com.dafttech.jasper
 import org.lwjgl.Version
 import org.lwjgl.glfw.GLFW._
 import org.lwjgl.glfw.{GLFWVidMode, GLFWKeyCallback, GLFWErrorCallback}
-import org.lwjgl.opengl.GL
+import org.lwjgl.opengl.{GL11, GL}
 import org.lwjgl.opengl.GL11._
 import org.lwjgl.system.MemoryUtil._
 
@@ -45,14 +45,28 @@ class Window(val width: Int, val height: Int) {
   val vidmode: GLFWVidMode = glfwGetVideoMode(glfwGetPrimaryMonitor)
   glfwSetWindowPos(l_WID, (vidmode.width - width) / 2, (vidmode.height - height) / 2)
   glfwMakeContextCurrent(l_WID)
-  glfwSwapInterval(1)
+  glfwSwapInterval(0)
   glfwShowWindow(l_WID)
 
   GL.createCapabilities()
-  glClearColor(1.0f, 0.0f, 0.0f, 0.0f)
+  glClearColor(0.5f, 0.5f, 0.5f, 0.0f)
 
   def render(sceneRenderer: SceneRenderer, scene: Scene) = {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+
+    GL11.glMatrixMode(GL11.GL_PROJECTION)
+    GL11.glLoadIdentity()
+    GL11.glOrtho(0, 800, 0, 600, 1, -1)
+    GL11.glMatrixMode(GL11.GL_MODELVIEW)
+
+    /*GL11.glBegin(GL11.GL_QUADS)
+    GL11.glVertex3f(100,100,0)
+    GL11.glVertex3f(100+200,100,0)
+    GL11.glVertex3f(100+200,100+200,0)
+    GL11.glVertex3f(100,100+200,0)
+    GL11.glEnd()*/
+
+    scene.vertexBuffer.commit
     sceneRenderer.render(scene)
     glfwSwapBuffers(l_WID)
     glfwPollEvents()

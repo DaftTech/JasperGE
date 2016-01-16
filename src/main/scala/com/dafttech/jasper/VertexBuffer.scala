@@ -1,6 +1,6 @@
 package com.dafttech.jasper
 
-import java.nio.{IntBuffer, FloatBuffer}
+import java.nio.{ByteOrder, ByteBuffer, IntBuffer, FloatBuffer}
 
 import org.lwjgl.opengl.GL15._
 
@@ -10,7 +10,7 @@ class VertexBufferLocation(val index: Int, val vertexBuffer: VertexBuffer) {
 }
 
 object Vertex {
-  val VTX_FLOAT_COUNT = 6
+  val VTX_FLOAT_COUNT = 3
 }
 
 class Vertex(val values: Seq[Float]) {
@@ -21,9 +21,7 @@ class Vertex(val values: Seq[Float]) {
 class VertexBuffer {
   val vboID = glGenBuffers()
 
-  glBindBuffer(GL_ARRAY_BUFFER, vboID)
-  glBufferData(GL_ARRAY_BUFFER, 512, GL_DYNAMIC_DRAW)
-  val vertexBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY).asFloatBuffer()
+  val vertexBuffer = ByteBuffer.allocateDirect(8192).order(ByteOrder.LITTLE_ENDIAN).asFloatBuffer()
 
   @volatile var changed = false
 
@@ -36,9 +34,18 @@ class VertexBuffer {
   }
 
   def set(location: VertexBufferLocation, vertices: Seq[Vertex]) = {
-    vertexBuffer.synchronized {
+    this.synchronized {
+      vertexBuffer.rewind()
       vertexBuffer.position(location.index)
       vertexBuffer.put(vertices.flatMap(_.values).toArray)
+    }
+  }
+
+  def commit = {
+    this.synchronized {
+      vertexBuffer.rewind()
+      glBindBuffer(GL_ARRAY_BUFFER, vboID)
+      glBufferData(GL_ARRAY_BUFFER, vertexBuffer, GL_STATIC_DRAW)
     }
   }
 }
