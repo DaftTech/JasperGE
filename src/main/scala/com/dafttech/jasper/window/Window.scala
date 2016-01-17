@@ -47,7 +47,7 @@ class Window(val width: Int, val height: Int) {
   val vidmode: GLFWVidMode = glfwGetVideoMode(glfwGetPrimaryMonitor)
   glfwSetWindowPos(l_WID, (vidmode.width - width) / 2, (vidmode.height - height) / 2)
   glfwMakeContextCurrent(l_WID)
-  glfwSwapInterval(0)
+  glfwSwapInterval(1)
   glfwShowWindow(l_WID)
 
   GL.createCapabilities()

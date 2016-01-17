@@ -1,6 +1,6 @@
 package com.dafttech.jasper.render
 
-import com.dafttech.jasper.scene.PlacedModel
+import com.dafttech.jasper.scene.{RenderingGroup, RenderingEntity, PlacedModel}
 import com.dafttech.jasper.util.Vertex
 
 import scala.collection.mutable
@@ -14,7 +14,8 @@ abstract class Tesselator {
 
   def getIdxCount: Int
 
-  def tesselate(model: PlacedModel): Unit
+  def tesselate(model: RenderingEntity, vertexBuffer: VertexBuffer): Unit
+  def tesselate(group: RenderingGroup, vertexBuffer: VertexBuffer): Unit
 }
 
 class TesselatorTriangles extends Tesselator {
@@ -25,16 +26,28 @@ class TesselatorTriangles extends Tesselator {
   var vtxC = 0
   var idxC = 0
 
-  def tesselate(obj: PlacedModel): Unit = {
-    if (obj.vbLoc == null) throw new IllegalStateException("Can't tesselate without a scene")
+  override def tesselate(obj: RenderingEntity, vertexBuffer: VertexBuffer): Unit = {
+    val vertices = obj.getVertices
+    val indices = obj.getIndices
 
-    val vertices = obj.model.getVertices
-    val indices = obj.model.getIndices
+    vtxC = vertices.size
+    idxC = indices.size
 
-    vtxC = vertices.length
-    idxC = indices.length
+    if(obj.vbLoc != null) {
+      if(obj.vbLoc.vertexBuffer != vertexBuffer) throw new IllegalStateException("Tesselation of object in foreign buffer")
+    }
+    else
+    {
+      vertexBuffer.allocate(vertices.size, indices.size)
+    }
 
-    obj.vbLoc.vertexBuffer.setVertices(obj.vbLoc, vertices)
-    obj.vbLoc.vertexBuffer.setIndices(obj.vbLoc, indices)
+    val mappedIndices = indices.map(_ + obj.vbLoc.vertexPosition)
+
+    vertexBuffer.setVertices(obj.vbLoc, vertices)
+    vertexBuffer.setIndices(obj.vbLoc, mappedIndices)
+  }
+
+  override def tesselate(group: RenderingGroup, vertexBuffer: VertexBuffer): Unit = {
+
   }
 }
