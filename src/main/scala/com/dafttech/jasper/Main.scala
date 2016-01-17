@@ -1,7 +1,7 @@
 package com.dafttech.jasper
 
 import com.dafttech.jasper.render.SceneRenderer
-import com.dafttech.jasper.scene.model.ModelOBJ
+import com.dafttech.jasper.scene.model.{ModelQuad, ModelOBJ}
 import com.dafttech.jasper.scene.{PlacedModel, RenderingGroup, Scene}
 import com.dafttech.jasper.window.Window
 import org.joml.Matrix4f
@@ -25,7 +25,7 @@ object Main {
 
     scn.addSub(grp)
 
-    //val obj7 = grp.addSub(new PlacedModel(new ModelQuad(-25, -25, 50, 50), new Matrix4f().translation(0, 0, -259)))
+    val obj7 = grp.addSub(new PlacedModel(new ModelQuad(-25, -25, 50, 50), new Matrix4f().translation(0, 0, -259)))
 
     val obj1 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(-50, -90, -250)))
     val obj2 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(0, -90, -250)))
