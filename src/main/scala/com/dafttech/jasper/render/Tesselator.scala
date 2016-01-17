@@ -18,11 +18,11 @@ abstract class Tesselator[T <: Entity] {
 }
 
 class TesselatorRenderingGroup extends Tesselator[RenderingGroup] {
-  override def getVtxCount(obj: RenderingGroup) = obj.childs.map(_.asInstanceOf[RenderingEntity]).map(_.getVertices.size).sum
-  override def getIdxCount(obj: RenderingGroup) = obj.childs.map(_.asInstanceOf[RenderingEntity]).map(_.getIndices.size).sum
+  override def getVtxCount(obj: RenderingGroup) = obj.childs.map(_.getVertices.size).sum
+  override def getIdxCount(obj: RenderingGroup) = obj.childs.map(_.getIndices.size).sum
 
   override def tesselate(obj: RenderingGroup, vertexBuffer: VertexBuffer): Unit = {
-    obj.childs.map(_.asInstanceOf[RenderingEntity]).foreach { e =>
+    obj.childs.foreach { e =>
       e.getTesselator.tesselate(e, vertexBuffer)
     }
   }
@@ -36,17 +36,14 @@ class TesselatorTriangles extends Tesselator[RenderingEntity] {
     val vertices = obj.getVertices
     val indices = obj.getIndices
 
-    if(obj.vbLoc != null) {
-      if(obj.vbLoc.vertexBuffer != vertexBuffer) throw new IllegalStateException("Tesselation of object in foreign buffer")
+    if (obj.vbLoc != null) {
+      if (obj.vbLoc.vertexBuffer != vertexBuffer) throw new IllegalStateException("Tesselation of object in foreign buffer")
     }
-    else
-    {
+    else {
       obj.vbLoc = vertexBuffer.allocate(vertices.size, indices.size)
     }
 
-    val mappedIndices = indices.map(_ + obj.vbLoc.vertexPosition)
-
     vertexBuffer.setVertices(obj.vbLoc, vertices)
-    vertexBuffer.setIndices(obj.vbLoc, mappedIndices)
+    vertexBuffer.setIndices(obj.vbLoc, indices)
   }
 }

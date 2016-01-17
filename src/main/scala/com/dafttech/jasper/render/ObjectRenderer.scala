@@ -16,7 +16,7 @@ object ObjectRenderer {
       glLoadMatrixf(groupMatBuffer)
       glMultMatrixf(obj.transformation.get(objMatBuffer))
 
-      glDrawElements(GL_TRIANGLES, obj.getTesselator.getIdxCount(obj), GL_UNSIGNED_INT, 0)
+      glDrawElements(GL_TRIANGLES, obj.getTesselator.getIdxCount(obj), GL_UNSIGNED_INT, obj.vbLoc.indexPosition)
     }
   }
 
@@ -24,8 +24,7 @@ object ObjectRenderer {
     override def render(obj: RenderingGroup): Unit = {
       obj.transformation.get(groupMatBuffer)
 
-      val entities = obj.childs.map(_.asInstanceOf[RenderingEntity])
-      for(e <- entities) {
+      for(e <- obj.childs) {
         e.getRenderer.render(e)
       }
     }
@@ -33,5 +32,5 @@ object ObjectRenderer {
 }
 
 abstract class ObjectRenderer[T <: Entity] {
-  def render(input: T)
+  def render(input: T): Unit
 }

@@ -51,7 +51,7 @@ class GroupingGroup extends Group with Node[Group]
 class RenderingGroup(val transformation: Matrix4f) extends Group with Rendering with Node[RenderingEntity] {
   override def getTransformation = transformation
 
-  override def getTesselator = Tesselator.Triangles
+  override def getTesselator = Tesselator.RenderingGroup
   override def getRenderer = ObjectRenderer.RenderingGroup
 
   val vertexBuffer = new VertexBuffer()
