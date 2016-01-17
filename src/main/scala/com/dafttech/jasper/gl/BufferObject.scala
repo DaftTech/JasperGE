@@ -37,6 +37,10 @@ abstract class BufferObject(val size: Int, val stride: Int, buffer: Int) {
 
   def close: Unit = glDeleteBuffers(bufferId)
 
+  def activate: Unit = {
+    bind
+  }
+
 
   def use[A](block: => A): A = {
     bind

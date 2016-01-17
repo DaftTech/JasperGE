@@ -4,8 +4,8 @@ import org.lwjgl.opengl.GL11._
 import org.lwjgl.opengl.GL15._
 
 class VertexBufferObject(size: Int, pointers: Seq[Pointer]) extends BufferObject(size, Pointer.stride(pointers), GL_ARRAY_BUFFER) {
-  def activate: Unit = {
-    bind
+  override def activate: Unit = {
+    super.activate
     Pointer.setup(pointers, stride)
   }
 

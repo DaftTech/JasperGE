@@ -1,9 +1,6 @@
 package com.dafttech.jasper.render
 
-import com.dafttech.jasper.scene.{Entity, RenderingGroup, RenderingEntity, PlacedModel}
-import com.dafttech.jasper.util.Vertex
-
-import scala.collection.mutable
+import com.dafttech.jasper.scene.{Entity, RenderingEntity, RenderingGroup}
 
 object Tesselator {
   val Triangles = new TesselatorTriangles
@@ -12,6 +9,7 @@ object Tesselator {
 
 abstract class Tesselator[T <: Entity] {
   def getVtxCount(obj: T): Int
+
   def getIdxCount(obj: T): Int
 
   def tesselate(obj: T, vertexBuffer: VertexBuffer): Unit
@@ -19,6 +17,7 @@ abstract class Tesselator[T <: Entity] {
 
 class TesselatorRenderingGroup extends Tesselator[RenderingGroup] {
   override def getVtxCount(obj: RenderingGroup) = obj.childs.map(_.getVertices.size).sum
+
   override def getIdxCount(obj: RenderingGroup) = obj.childs.map(_.getIndices.size).sum
 
   override def tesselate(obj: RenderingGroup, vertexBuffer: VertexBuffer): Unit = {
@@ -30,6 +29,7 @@ class TesselatorRenderingGroup extends Tesselator[RenderingGroup] {
 
 class TesselatorTriangles extends Tesselator[RenderingEntity] {
   def getVtxCount(obj: RenderingEntity) = obj.getVertices.size
+
   def getIdxCount(obj: RenderingEntity) = obj.getIndices.size
 
   override def tesselate(obj: RenderingEntity, vertexBuffer: VertexBuffer): Unit = {

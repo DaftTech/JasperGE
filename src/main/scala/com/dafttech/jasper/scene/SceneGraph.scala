@@ -1,6 +1,6 @@
 package com.dafttech.jasper.scene
 
-import com.dafttech.jasper.render.{VertexBuffer, VertexBufferLocation, Tesselator, ObjectRenderer}
+import com.dafttech.jasper.render.{ObjectRenderer, Tesselator, VertexBuffer, VertexBufferLocation}
 import com.dafttech.jasper.util.Vertex
 import org.joml.Matrix4f
 
@@ -12,7 +12,9 @@ abstract class Entity {
 
 trait Rendering {
   def getTransformation: Matrix4f
+
   def getTesselator: Tesselator[_]
+
   def getRenderer: ObjectRenderer[_]
 }
 
@@ -20,9 +22,11 @@ abstract class RenderingEntity(val transformation: Matrix4f) extends Entity with
   override def getTransformation = transformation
 
   override def getTesselator = Tesselator.Triangles
+
   override def getRenderer = ObjectRenderer.Triangles
 
   def getVertices: Seq[Vertex]
+
   def getIndices: Seq[Int]
 
   var vbLoc: VertexBufferLocation = null
@@ -52,6 +56,7 @@ class RenderingGroup(val transformation: Matrix4f) extends Group with Rendering 
   override def getTransformation = transformation
 
   override def getTesselator = Tesselator.RenderingGroup
+
   override def getRenderer = ObjectRenderer.RenderingGroup
 
   val vertexBuffer = new VertexBuffer()
