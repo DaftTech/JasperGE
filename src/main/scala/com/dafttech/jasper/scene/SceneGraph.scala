@@ -12,7 +12,7 @@ abstract class Entity {
 
 trait Rendering {
   def getTransformation: Matrix4f
-  def getTesselator: Tesselator
+  def getTesselator: Tesselator[_]
   def getRenderer: ObjectRenderer[_]
 }
 

@@ -1,37 +1,40 @@
 package com.dafttech.jasper.render
 
-import com.dafttech.jasper.scene.{RenderingGroup, RenderingEntity, PlacedModel}
+import com.dafttech.jasper.scene.{Entity, RenderingGroup, RenderingEntity, PlacedModel}
 import com.dafttech.jasper.util.Vertex
 
 import scala.collection.mutable
 
 object Tesselator {
-  val Triangles = new TesselatorTriangles()
+  val Triangles = new TesselatorTriangles
+  val RenderingGroup = new TesselatorRenderingGroup
 }
 
-abstract class Tesselator {
-  def getVtxCount: Int
+abstract class Tesselator[T <: Entity] {
+  def getVtxCount(obj: T): Int
+  def getIdxCount(obj: T): Int
 
-  def getIdxCount: Int
-
-  def tesselate(model: RenderingEntity, vertexBuffer: VertexBuffer): Unit
-  def tesselate(group: RenderingGroup, vertexBuffer: VertexBuffer): Unit
+  def tesselate(obj: T, vertexBuffer: VertexBuffer): Unit
 }
 
-class TesselatorTriangles extends Tesselator {
-  def getVtxCount = vtxC
+class TesselatorRenderingGroup extends Tesselator[RenderingGroup] {
+  override def getVtxCount(obj: RenderingGroup) = obj.childs.map(_.asInstanceOf[RenderingEntity]).map(_.getVertices.size).sum
+  override def getIdxCount(obj: RenderingGroup) = obj.childs.map(_.asInstanceOf[RenderingEntity]).map(_.getIndices.size).sum
 
-  def getIdxCount = idxC
+  override def tesselate(obj: RenderingGroup, vertexBuffer: VertexBuffer): Unit = {
+    obj.childs.map(_.asInstanceOf[RenderingEntity]).foreach { e =>
+      e.getTesselator.tesselate(e, vertexBuffer)
+    }
+  }
+}
 
-  var vtxC = 0
-  var idxC = 0
+class TesselatorTriangles extends Tesselator[RenderingEntity] {
+  def getVtxCount(obj: RenderingEntity) = obj.getVertices.size
+  def getIdxCount(obj: RenderingEntity) = obj.getIndices.size
 
   override def tesselate(obj: RenderingEntity, vertexBuffer: VertexBuffer): Unit = {
     val vertices = obj.getVertices
     val indices = obj.getIndices
-
-    vtxC = vertices.size
-    idxC = indices.size
 
     if(obj.vbLoc != null) {
       if(obj.vbLoc.vertexBuffer != vertexBuffer) throw new IllegalStateException("Tesselation of object in foreign buffer")
@@ -45,9 +48,5 @@ class TesselatorTriangles extends Tesselator {
 
     vertexBuffer.setVertices(obj.vbLoc, vertices)
     vertexBuffer.setIndices(obj.vbLoc, mappedIndices)
-  }
-
-  override def tesselate(group: RenderingGroup, vertexBuffer: VertexBuffer): Unit = {
-
   }
 }

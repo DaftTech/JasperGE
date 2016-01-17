@@ -13,7 +13,7 @@ object ObjectRenderer {
       glPushMatrix()
       matBuffer.rewind()
       glMultMatrixf(obj.transformation.get(matBuffer))
-      glDrawElements(GL_TRIANGLES, obj.getTesselator.getIdxCount, GL_UNSIGNED_INT, 0)
+      glDrawElements(GL_TRIANGLES, obj.getTesselator.getIdxCount(obj), GL_UNSIGNED_INT, 0)
       glPopMatrix()
     }
   }
@@ -22,7 +22,7 @@ object ObjectRenderer {
     override def render(obj: RenderingGroup): Unit = {
       glLoadIdentity()
       matBuffer.rewind()
-      glMultMatrixf(obj.transformation.get(matBuffer))
+      glLoadMatrixf(obj.transformation.get(matBuffer))
 
       val entities = obj.childs.map(_.asInstanceOf[RenderingEntity])
       for(e <- entities) {
