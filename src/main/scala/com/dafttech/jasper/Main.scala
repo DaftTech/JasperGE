@@ -34,6 +34,8 @@ object Main {
     val obj5 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(0, -90, -250)))
     val obj6 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(50, -90, -250)))
 
+    val obj7 = grp.addSub(new PlacedModel(new ModelQuad(0, 0, 10, 10), new Matrix4f().translation(0, 0, -100)))
+
     val scnR = new SceneRenderer {
       override def render(scene: Scene): Unit = {
         for (m <- scene.childs) {

@@ -57,7 +57,7 @@ class Window(val width: Int, val height: Int) {
   glMatrixMode(GL_PROJECTION)
   glLoadIdentity()
 
-  val cam = new Camera(width, height, new Vector3f(0, 100, 550), new Vector3f(0, 0, 0))
+  val cam = new Camera(width, height, new Vector3f(0, 0, 1), new Vector3f(0, 0, 0))
   val matrix = ByteBuffer.allocateDirect(4 * 16).order(ByteOrder.LITTLE_ENDIAN).asFloatBuffer()
   cam.matrix.get(matrix)
   matrix.rewind()
