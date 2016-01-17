@@ -13,14 +13,14 @@ abstract class Entity {
 trait Rendering {
   def getTransformation: Matrix4f
   def getTesselator: Tesselator
-  def getRenderer: ObjectRenderer
+  def getRenderer: ObjectRenderer[_]
 }
 
 abstract class RenderingEntity(val transformation: Matrix4f) extends Entity with Rendering {
   override def getTransformation = transformation
 
-  override def getTesselator: Tesselator = Tesselator.Triangles
-  override def getRenderer: ObjectRenderer = ObjectRenderer.Triangles
+  override def getTesselator = Tesselator.Triangles
+  override def getRenderer = ObjectRenderer.Triangles
 
   def getVertices: Seq[Vertex]
   def getIndices: Seq[Int]
@@ -50,8 +50,8 @@ class RenderingGroup(val transformation: Matrix4f) extends Group with Rendering 
 
   override def getTransformation = transformation
 
-  override def getTesselator: Tesselator = Tesselator.Triangles
-  override def getRenderer: ObjectRenderer = ObjectRenderer.Triangles
+  override def getTesselator = Tesselator.Triangles
+  override def getRenderer = ObjectRenderer.RenderingGroup
 
   val vertexBuffer = new VertexBuffer()
 
