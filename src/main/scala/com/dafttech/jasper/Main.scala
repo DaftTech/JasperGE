@@ -27,14 +27,14 @@ object Main {
 
     scn.addSub(grp)
 
+    val obj7 = grp.addSub(new PlacedModel(new ModelQuad(-25, -25, 50, 50), new Matrix4f().translation(0, 0, -259)))
+
     val obj1 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(-50, -90, -250)))
     val obj2 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(0, -90, -250)))
     val obj3 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(50, -90, -250)))
     val obj4 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(-50, -90, -250)))
     val obj5 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(0, -90, -250)))
     val obj6 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(50, -90, -250)))
-
-    val obj7 = grp.addSub(new PlacedModel(new ModelQuad(0, 0, 10, 10), new Matrix4f().translation(0, 0, -100)))
 
     val scnR = new SceneRenderer {
       override def render(scene: Scene): Unit = {
@@ -52,7 +52,7 @@ object Main {
         Thread.sleep(500)
         rot += 0.50f
         rot = rot % (2 * Math.PI.toFloat)
-        obj1.transformation.set(new Matrix4f().translation(-165, -40, -300).rotateZ(rot))
+        obj1.transformation.set(new Matrix4f().translation(-165, 110, -300).rotateZ(rot))
       }
     }
 
@@ -62,7 +62,7 @@ object Main {
         Thread.sleep(250)
         rot += 0.25f
         rot = rot % (2 * Math.PI.toFloat)
-        obj2.transformation.set(new Matrix4f().translation(0, -40, -300).rotateZ(rot))
+        obj2.transformation.set(new Matrix4f().translation(0, 110, -300).rotateZ(rot))
       }
     }
 
@@ -72,7 +72,7 @@ object Main {
         Thread.sleep(100)
         rot += 0.1f
         rot = rot % (2 * Math.PI.toFloat)
-        obj3.transformation.set(new Matrix4f().translation(165, -40, -300).rotateZ(rot))
+        obj3.transformation.set(new Matrix4f().translation(165, 110, -300).rotateZ(rot))
       }
     }
 
@@ -82,7 +82,7 @@ object Main {
         Thread.sleep(50)
         rot += 0.05f
         rot = rot % (2 * Math.PI.toFloat)
-        obj4.transformation.set(new Matrix4f().translation(-165, -160, -200).rotateZ(rot))
+        obj4.transformation.set(new Matrix4f().translation(-165, -110, -300).rotateZ(rot))
       }
     }
 
@@ -92,7 +92,7 @@ object Main {
         Thread.sleep(20)
         rot += 0.02f
         rot = rot % (2 * Math.PI.toFloat)
-        obj5.transformation.set(new Matrix4f().translation(0, -160, -200).rotateZ(rot))
+        obj5.transformation.set(new Matrix4f().translation(0, -110, -300).rotateZ(rot))
       }
     }
 
@@ -102,7 +102,7 @@ object Main {
         Thread.sleep(10)
         rot += 0.01f
         rot = rot % (2 * Math.PI.toFloat)
-        obj6.transformation.set(new Matrix4f().translation(165, -160, -200).rotateZ(rot))
+        obj6.transformation.set(new Matrix4f().translation(165, -110, -300).rotateZ(rot))
       }
     }
 

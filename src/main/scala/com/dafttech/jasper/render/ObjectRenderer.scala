@@ -6,23 +6,23 @@ import com.dafttech.jasper.scene.{RenderingGroup, RenderingEntity, Entity, Place
 import org.lwjgl.opengl.GL11._
 
 object ObjectRenderer {
-  val matBuffer = ByteBuffer.allocateDirect(16*4).order(ByteOrder.nativeOrder()).asFloatBuffer()
+  val objMatBuffer = ByteBuffer.allocateDirect(16*4).order(ByteOrder.nativeOrder()).asFloatBuffer()
+  val groupMatBuffer = ByteBuffer.allocateDirect(16*4).order(ByteOrder.nativeOrder()).asFloatBuffer()
 
   val Triangles = new ObjectRenderer[RenderingEntity] {
     override def render(obj: RenderingEntity): Unit = {
-      glPushMatrix()
-      matBuffer.rewind()
-      glMultMatrixf(obj.transformation.get(matBuffer))
+      groupMatBuffer.rewind()
+      objMatBuffer.rewind()
+      glLoadMatrixf(groupMatBuffer)
+      glMultMatrixf(obj.transformation.get(objMatBuffer))
+
       glDrawElements(GL_TRIANGLES, obj.getTesselator.getIdxCount(obj), GL_UNSIGNED_INT, 0)
-      glPopMatrix()
     }
   }
 
   val RenderingGroup = new ObjectRenderer[RenderingGroup] {
     override def render(obj: RenderingGroup): Unit = {
-      glLoadIdentity()
-      matBuffer.rewind()
-      glLoadMatrixf(obj.transformation.get(matBuffer))
+      obj.transformation.get(groupMatBuffer)
 
       val entities = obj.childs.map(_.asInstanceOf[RenderingEntity])
       for(e <- entities) {
