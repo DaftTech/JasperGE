@@ -117,9 +117,6 @@ class Window(val width: Int, val height: Int) {
 
     glMatrixMode(GL_MODELVIEW)
 
-    scene.vertexBuffer.commit
-    scene.vertexBuffer.activate
-
     sceneRenderer.render(scene)
 
     glfwSwapBuffers(l_WID)

@@ -28,9 +28,8 @@ abstract class RenderingEntity(val transformation: Matrix4f) extends Entity with
   var vbLoc: VertexBufferLocation = null
 }
 
-class Group extends Entity {
-  type AcceptedChilds = Group
-  val childs = new mutable.MutableList[Entity]
+trait Node[AcceptedChilds] {
+  val childs = new mutable.MutableList[AcceptedChilds]
 
   def initSub(entity: AcceptedChilds) = {
 
@@ -45,9 +44,11 @@ class Group extends Entity {
   }
 }
 
-class RenderingGroup(val transformation: Matrix4f) extends Group with Rendering {
-  override type AcceptedChilds = RenderingEntity
+abstract class Group extends Entity
 
+class GroupingGroup extends Group with Node[Group]
+
+class RenderingGroup(val transformation: Matrix4f) extends Group with Rendering with Node[RenderingEntity] {
   override def getTransformation = transformation
 
   override def getTesselator = Tesselator.Triangles
@@ -55,7 +56,7 @@ class RenderingGroup(val transformation: Matrix4f) extends Group with Rendering 
 
   val vertexBuffer = new VertexBuffer()
 
-  override def initSub(entity: AcceptedChilds): Unit = {
+  override def initSub(entity: RenderingEntity): Unit = {
     entity.getTesselator.tesselate(entity, vertexBuffer)
   }
 }

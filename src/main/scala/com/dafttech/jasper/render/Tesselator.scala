@@ -41,7 +41,7 @@ class TesselatorTriangles extends Tesselator[RenderingEntity] {
     }
     else
     {
-      vertexBuffer.allocate(vertices.size, indices.size)
+      obj.vbLoc = vertexBuffer.allocate(vertices.size, indices.size)
     }
 
     val mappedIndices = indices.map(_ + obj.vbLoc.vertexPosition)

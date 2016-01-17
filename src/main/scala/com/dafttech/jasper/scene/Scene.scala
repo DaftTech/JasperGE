@@ -4,5 +4,5 @@ import com.dafttech.jasper.render.VertexBuffer
 
 import scala.collection.mutable
 
-class Scene extends Group {
+class Scene extends GroupingGroup {
 }
