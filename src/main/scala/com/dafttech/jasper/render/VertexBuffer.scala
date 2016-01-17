@@ -22,7 +22,7 @@ class VertexBuffer {
   var indexAllocPos = 0
 
   def allocate(vtxCount: Int, idxCount: Int): VertexBufferLocation = {
-    val r = new VertexBufferLocation(vertexAllocPos, indexAllocPos, this)
+    val r = new VertexBufferLocation(vertexAllocPos / Vertex.VTX_FLOAT_COUNT, indexAllocPos, this)
     vertexAllocPos += vtxCount * Vertex.VTX_FLOAT_COUNT
     indexAllocPos += idxCount
 
@@ -31,9 +31,9 @@ class VertexBuffer {
 
   def setVertices(location: VertexBufferLocation, vertices: Seq[Vertex]) = {
     this.synchronized {
-      vertexBuffer.position(location.vertexPosition)
+      vertexBuffer.position(location.vertexPosition * Vertex.VTX_FLOAT_COUNT)
       vertexBuffer.put(vertices.flatMap(_.values).toArray)
-      vertexBuffer.position(0)
+      vertexBuffer.rewind()
 
       changed = true
     }
@@ -43,7 +43,7 @@ class VertexBuffer {
     this.synchronized {
       indexBuffer.position(location.indexPosition)
       indexBuffer.put(indices.map(_ + location.vertexPosition).toArray)
-      indexBuffer.position(0)
+      indexBuffer.rewind()
 
       changed = true
     }
