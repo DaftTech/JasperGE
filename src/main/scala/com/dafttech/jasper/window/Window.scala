@@ -3,7 +3,8 @@ package com.dafttech.jasper.window
 import java.nio.{ByteBuffer, ByteOrder, FloatBuffer}
 
 import com.dafttech.jasper.render.SceneRenderer
-import com.dafttech.jasper.scene.Scene
+import com.dafttech.jasper.scene.{Camera, Scene}
+import org.joml.Vector3f
 import org.lwjgl.glfw.GLFW._
 import org.lwjgl.glfw.{GLFWErrorCallback, GLFWKeyCallback, GLFWVidMode}
 import org.lwjgl.opengl.GL
@@ -56,40 +57,11 @@ class Window(val width: Int, val height: Int) {
   glMatrixMode(GL_PROJECTION)
   glLoadIdentity()
 
+  val cam = new Camera(width, height, new Vector3f(0, 100, 550), new Vector3f(0, 0, 0))
   val matrix = ByteBuffer.allocateDirect(4 * 16).order(ByteOrder.LITTLE_ENDIAN).asFloatBuffer()
-
-  val fov = 75.0f
-  val aspect = width.toFloat / height.toFloat
-  val zFar = 1000f
-  val zNear = 0.001f
-
-  val yScale = (1.0f / Math.tan(Math.toRadians(fov / 2))).toFloat
-  val xScale = yScale / aspect
-  val frustrumLength = zFar - zNear
-
-  matrix.put(xScale);
-  matrix.put(0);
-  matrix.put(0);
-  matrix.put(0)
-  matrix.put(0);
-  matrix.put(yScale);
-  matrix.put(0);
-  matrix.put(0)
-  matrix.put(0);
-  matrix.put(0);
-  matrix.put(-((zFar + zNear) / frustrumLength));
-  matrix.put(-1)
-  matrix.put(0);
-  matrix.put(0);
-  matrix.put(-((2 * zFar * zNear) / frustrumLength));
-  matrix.put(0)
-
+  cam.matrix.get(matrix)
   matrix.rewind()
-
   glLoadMatrixf(matrix)
-
-  glTranslatef(0, -0.4f, 0)
-  glRotatef(20, 1, 0, 0)
 
   val temp = ByteBuffer.allocateDirect(16).order(ByteOrder.nativeOrder()).asFloatBuffer()
 
