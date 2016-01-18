@@ -52,7 +52,7 @@ class ModelOBJ(path: String, scalingFactor: Float = 1f) extends Model {
   val fTexCoords = fParsed.filter(_.isInstanceOf[TexCoord]).map(_.asInstanceOf[TexCoord])
   val fFaces = fParsed.filter(_.isInstanceOf[OBJFace]).map(_.asInstanceOf[OBJFace])
 
-  println(s"Model loading with ${fPoints.length} points, ${fNormals.length} normals and ${fFaces.length} faces")
+  println(s"[$path] loading with ${fPoints.size} points, ${fNormals.size} normals, ${fTexCoords.size} texCoords and ${fFaces.length} faces")
 
   val fRawVertices = fFaces.flatMap { case f: OBJFace =>
     Seq(
@@ -81,7 +81,7 @@ class ModelOBJ(path: String, scalingFactor: Float = 1f) extends Model {
 
   val indices = fRawVertices.map(f => fDistinctVertices.indexOf(f))
 
-  println(s"Model loaded with ${vertices.length} vertices and ${indices.length} indices")
+  println(s"[$path] represented with ${vertices.size} unique vertices and ${indices.size} indices")
 
   override def getVertices: Seq[Vertex] = vertices
 
