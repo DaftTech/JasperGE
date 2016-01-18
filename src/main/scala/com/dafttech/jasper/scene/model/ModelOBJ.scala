@@ -3,7 +3,7 @@ package com.dafttech.jasper.scene.model
 import com.dafttech.jasper.util.Vertex
 
 
-class ModelOBJ(path: String) extends Model {
+class ModelOBJ(path: String, scalingFactor: Float = 1f) extends Model {
 
   case class OBJFace(i1p: Int, i1n: Int, i1t: Int, i2p: Int, i2n: Int, i2t: Int, i3p: Int, i3n: Int, i3t: Int)
 
@@ -52,7 +52,7 @@ class ModelOBJ(path: String) extends Model {
   val fTexCoords = fParsed.filter(_.isInstanceOf[TexCoord]).map(_.asInstanceOf[TexCoord])
   val fFaces = fParsed.filter(_.isInstanceOf[OBJFace]).map(_.asInstanceOf[OBJFace])
 
-  println(s"Model loading with ${fPoints.length} points and ${fFaces.length} faces")
+  println(s"Model loading with ${fPoints.length} points, ${fNormals.length} normals and ${fFaces.length} faces")
 
   val fRawVertices = fFaces.flatMap { case f: OBJFace =>
     Seq(
@@ -66,9 +66,9 @@ class ModelOBJ(path: String) extends Model {
 
   val vertices = fDistinctVertices.map { v =>
     new Vertex(Seq[Float](
-      fPoints(v.pointIndex).x,
-      fPoints(v.pointIndex).y,
-      fPoints(v.pointIndex).z,
+      fPoints(v.pointIndex).x * scalingFactor,
+      fPoints(v.pointIndex).y * scalingFactor,
+      fPoints(v.pointIndex).z * scalingFactor,
       1,
       1,
       0,

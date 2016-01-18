@@ -18,6 +18,7 @@ object Main {
     val win = new Window(1440, 900)
 
     val teapot = new ModelOBJ("teapot.obj")
+    val model2 = new ModelOBJ("Rabbit.obj", 100)
 
 
     val scn = new Scene
@@ -30,9 +31,9 @@ object Main {
     val obj1 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(-50, -90, -250)))
     val obj2 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(0, -90, -250)))
     val obj3 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(50, -90, -250)))
-    val obj4 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(-50, -90, -250)))
-    val obj5 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(0, -90, -250)))
-    val obj6 = grp.addSub(new PlacedModel(teapot, new Matrix4f().translation(50, -90, -250)))
+    val obj4 = grp.addSub(new PlacedModel(model2, new Matrix4f().translation(-50, -90, -250)))
+    val obj5 = grp.addSub(new PlacedModel(model2, new Matrix4f().translation(0, -90, -250)))
+    val obj6 = grp.addSub(new PlacedModel(model2, new Matrix4f().translation(50, -90, -250)))
 
     val scnR = new SceneRenderer {
       override def render(scene: Scene): Unit = {
